@@ -109,8 +109,9 @@ a:hover{text-decoration:underline}
 }
 
 .hero-left h1{
-  margin:0;
-  font-size:38px;
+  grid-column:1 / -1;
+  margin:0 0 10px 0;
+  font-size:42px;
   letter-spacing:-.5px;
 }
 
