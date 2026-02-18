@@ -121,6 +121,13 @@ a:hover{text-decoration:underline}
   line-height:1.55;
 }
 
+.hero-title{
+  grid-column:1 / -1;
+  font-size:42px;
+  margin:0 0 14px 0;
+  white-space:nowrap;
+}
+
 .hero-actions{
   display:flex;
   gap:10px;
