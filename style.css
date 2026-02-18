@@ -123,7 +123,7 @@ a:hover{text-decoration:underline}
 
 .hero-title{
   grid-column:1 / -1;
-  font-size:42px;
+  font-size:clamp(28px, 3vw, 42px);
   margin:0 0 14px 0;
   white-space:nowrap;
 }
