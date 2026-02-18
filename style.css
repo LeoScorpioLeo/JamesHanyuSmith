@@ -104,7 +104,6 @@ a:hover{text-decoration:underline}
 }
 
 @media (max-width:980px){
-  .hero{grid-template-columns:1fr}
   .brand{min-width:unset}
 }
 
