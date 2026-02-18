@@ -1,1 +1,284 @@
-<!doctype html> <html lang="en"> <head> <meta charset="utf-8"> <meta name="viewport" content="width=device-width, initial-scale=1"> <title>James Hanyu Smith | Portfolio</title> <style> body { font-family: Arial, sans-serif; margin: 0; background: #0e1117; color: #e6edf3; } header { padding: 40px 20px; text-align: center; border-bottom: 1px solid #30363d; } h1 { margin: 0; font-size: 32px; } .tagline { color: #8b949e; margin-top: 10px; } section { max-width: 900px; margin: 40px auto; padding: 0 20px; } .card { background: #161b22; padding: 20px; border-radius: 12px; margin-bottom: 20px; border: 1px solid #30363d; } h2 { margin-top: 0; } ul { margin-top: 10px; } a { color: #58a6ff; text-decoration: none; } a:hover { text-decoration: underline; } .button { display: inline-block; margin-top: 15px; padding: 10px 16px; background: #238636; color: white; border-radius: 8px; } footer { text-align: center; padding: 30px; color: #8b949e; border-top: 1px solid #30363d; } </style> </head> <body> <header> <h1>James Hanyu Smith</h1> <p class="tagline">Facilities Technician | Industrial Automation | Electromechanical Systems</p> </header> <section> <div class="card"> <h2>About Me</h2> <p> I maintain and troubleshoot critical systems in high-demand environments. My focus is safety, uptime, root cause analysis, and structured documentation. I bring hands-on experience across mechanical, electrical, and control systems. </p> <a class="button" href="#">Download Resume (PDF)</a> </div> <div class="card"> <h2>Core Skills</h2> <ul> <li>Motor controls and VFD diagnostics</li> <li>PLC troubleshooting</li> <li>Preventive maintenance programs</li> <li>Mechanical drive systems</li> <li>Electrical safety and LOTO</li> <li>Root cause analysis</li> </ul> </div> <div class="card"> <h2>Experience Snapshot</h2> <ul> <li>Mechatronics & Robotics Technician – Amazon</li> <li>Facilities & Hospitality Maintenance – Broadmoor</li> <li>Industrial equipment diagnostics and repair</li> </ul> </div> <div class="card"> <h2>Contact</h2> <p>Email: your.email@example.com</p> <p>Location: Colorado Springs, CO</p> <p>GitHub: <a href="https://github.com/LeoScorpioLeo">github.com/LeoScorpioLeo</a></p> </div> </section> <footer> © 2026 James Hanyu Smith </footer> </body> </html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>James Hanyu Smith | Facilities and Fountain Maintenance Technician</title>
+  <style>
+    :root{
+      --bg:#0b0f14;
+      --panel:#111826;
+      --text:#e8eef6;
+      --muted:#a9b4c3;
+      --line:#233044;
+      --accent:#7dd3fc;
+      --accent2:#cbd5e1;
+      --chip:#0f2235;
+      --chipLine:#244a6f;
+      --btn:#0b2a3f;
+      --btnLine:#275a7a;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 14px;
+    }
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Helvetica Neue", Helvetica;
+      background: radial-gradient(1200px 700px at 10% 0%, rgba(125,211,252,.12), transparent 55%),
+                  radial-gradient(900px 600px at 80% 10%, rgba(203,213,225,.10), transparent 60%),
+                  var(--bg);
+      color:var(--text);
+      line-height:1.45;
+    }
+    a{ color:var(--accent); text-decoration:none; }
+    a:hover{ text-decoration:underline; }
+    .wrap{
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 24px 18px 60px;
+    }
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding: 18px 18px;
+      background: rgba(17,24,38,.72);
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(8px);
+    }
+    .name{
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+      min-width: 220px;
+    }
+    .name h1{
+      margin:0;
+      font-size: 22px;
+      letter-spacing: .2px;
+    }
+    .name .role{
+      margin:0;
+      color:var(--muted);
+      font-size: 14px;
+    }
+    .actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      justify-content:flex-end;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 12px;
+      border-radius: 12px;
+      background: var(--btn);
+      border:1px solid var(--btnLine);
+      color: var(--text);
+      font-size: 14px;
+      text-decoration:none;
+      white-space:nowrap;
+    }
+    .btn:hover{
+      border-color: var(--accent);
+      text-decoration:none;
+    }
+    .grid{
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap:14px;
+      margin-top:14px;
+    }
+    @media (max-width: 860px){
+      .grid{ grid-template-columns:1fr; }
+      .actions{ justify-content:flex-start; }
+    }
+    .card{
+      background: rgba(17,24,38,.72);
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 18px;
+      backdrop-filter: blur(8px);
+    }
+    .card h2{
+      margin:0 0 10px 0;
+      font-size: 16px;
+      letter-spacing:.2px;
+    }
+    .muted{ color:var(--muted); }
+    .chips{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-top:10px;
+    }
+    .chip{
+      padding:7px 10px;
+      border-radius: 999px;
+      background: rgba(15,34,53,.65);
+      border:1px solid var(--chipLine);
+      color: var(--accent2);
+      font-size: 13px;
+    }
+    .list{
+      margin:10px 0 0 0;
+      padding-left: 18px;
+      color: var(--accent2);
+    }
+    .list li{ margin: 6px 0; }
+    .section{
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+    }
+    .job{
+      border-top: 1px solid rgba(35,48,68,.65);
+      padding-top: 12px;
+      margin-top: 12px;
+    }
+    .job:first-child{
+      border-top:none;
+      padding-top:0;
+      margin-top:0;
+    }
+    .jobTitle{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      align-items:baseline;
+      margin:0;
+    }
+    .jobTitle strong{ font-size: 14px; }
+    .jobTitle span{
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .footer{
+      margin-top: 14px;
+      text-align:center;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .kpi{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:10px;
+      margin-top:10px;
+    }
+    @media (max-width: 520px){
+      .kpi{ grid-template-columns:1fr; }
+    }
+    .kpi .box{
+      border:1px solid rgba(35,48,68,.65);
+      border-radius: 12px;
+      padding: 10px 12px;
+      background: rgba(15,22,32,.35);
+    }
+    .kpi .box .label{
+      color: var(--muted);
+      font-size: 12px;
+      margin:0 0 6px 0;
+    }
+    .kpi .box .value{
+      margin:0;
+      font-size: 14px;
+      color: var(--text);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="name">
+        <h1>James Hanyu Smith</h1>
+        <p class="role">Facilities and Fountain Maintenance Technician | Industrial Automation &amp; Fluid Power | VFD &amp; PLC Troubleshooting</p>
+      </div>
+
+      <div class="actions">
+        <a class="btn" href="resume.pdf" target="_blank" rel="noopener">Download Resume (PDF)</a>
+        <a class="btn" href="mailto:jameshanyusmith@gmail.com">jameshanyusmith@gmail.com</a>
+        <a class="btn" href="https://www.linkedin.com/in/jameshanyusmith" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="section">
+        <div class="card">
+          <h2>Professional Summary</h2>
+          <p class="muted" style="margin:0;">
+            Electromechanical Systems Technician with hands-on experience supporting large-scale automated mechanical and electrical systems in uptime-critical environments. Strong foundation in industrial automation, fluid power, rotating equipment, and PLC-controlled motion systems.
+            Skilled in troubleshooting motors, Variable Frequency Drives (VFD), sensors, control panels, and motion-driven assemblies where reliability and safety are non-negotiable. Experienced with preventive and corrective maintenance, root cause analysis, LOTO (Lockout Tagout), NFPA 70E electrical safety, and CMMS (Computerized Maintenance Management Systems) documentation.
+          </p>
+
+          <div class="kpi">
+            <div class="box">
+              <p class="label">Target Focus</p>
+              <p class="value">Water Features and Aquatic Systems</p>
+            </div>
+            <div class="box">
+              <p class="label">Core Strength</p>
+              <p class="value">Reliability-centered troubleshooting</p>
+            </div>
+            <div class="box">
+              <p class="label">Safety Discipline</p>
+              <p class="value">LOTO and NFPA 70E</p>
+            </div>
+          </div>
+
+          <div class="chips" aria-label="Core skills">
+            <span class="chip">Electromechanical Troubleshooting</span>
+            <span class="chip">Motors and Drives</span>
+            <span class="chip">Rotating Equipment</span>
+            <span class="chip">Fluid Power Fundamentals</span>
+            <span class="chip">VFD Diagnostics</span>
+            <span class="chip">PLC Diagnostics</span>
+            <span class="chip">Preventive Maintenance</span>
+            <span class="chip">Corrective Maintenance</span>
+            <span class="chip">Root Cause Analysis</span>
+            <span class="chip">CMMS Documentation</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>Experience</h2>
+
+          <div class="job">
+            <p class="jobTitle"><strong>Founder and Operator</strong> <span>LeoScorpioLeo Ltd | Jun 2025 to Present</span></p>
+            <ul class="list">
+              <li>Operate an apparel and digital products business with ownership of day-to-day operations, product design, listings, and quality standards.</li>
+              <li>Maintain website and storefront content for accurate presentation and reliable customer experience.</li>
+              <li>Manage vendor coordination, fulfillment workflows, and basic financial tracking to support operational control.</li>
+            </ul>
+          </div>
+
+          <div class="job">
+            <p class="jobTitle"><strong>Mechatronics and Robotics Technician</strong> <span>Amazon | Apr 2024 to Nov 2025 | Colorado Springs, CO</span></p>
+            <ul class="list">
+              <li>Supported continuous, safety-critical material handling systems and maintained large-scale conveyor and sortation equipment.</li>
+              <li>Troubleshot motors, drives, sensors, and control devices to restore equipment to service.</li>
+              <li>Operated VFDs in local manual mode for equipment recovery and jam resolution and supported repairs under established procedures.</li>
+              <li>Executed preventive maintenance routes and documented findings and follow-up actions in CMMS.</li>
+              <li>Applied LOTO and electrical safety practices as a qualified electrical worker using required procedures and PPE (Personal Protective Equipment).</li>
+            </ul>
+          </div>
+
+          <div class="job">
+            <p class="jobTitle"><strong>Mechatronics and Robotics Technician</strong> <span>Daifuku America | Aug 2022 to Apr 2024 | Colorado Springs, CO</span></p>
+            <ul class="list">
+              <li>Performed mechanical repairs, alignment, component replacement, inspections, belt tensioning, adjustments, and system resets.</li>
+              <li>Used schematics, diagnostic screens, test instruments, and hand and power tools to verify faults and repairs.</li>
+              <li>Worked at heights and supported planned and unplanned downtime events with multidisciplinary teams.</li>
+            </ul>
+          </div>
+
+          <div class="job">
+            <p class="jobTitle"><strong>Mechatronics and Robotics Apprentice</strong> <span>Daifuku America | May 2021 to Nov 2022 | Colorado Springs, CO</span></p>
+            <ul class="list">
+              <li>Completed a structured apprenticeship covering industrial maintenance, electrical systems, mechanical drives, fluid power, and automation fundamentals.</li>
