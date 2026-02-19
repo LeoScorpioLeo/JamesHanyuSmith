@@ -1,370 +1,119 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>James Hanyu Smith | Mechatronics & Facilities Maintenance Technician</title>
-  <meta name="description" content="Electromechanical Systems Technician. Industrial automation, electrical troubleshooting, VFD and PLC diagnostics, safety-first maintenance." />
-  <link rel="stylesheet" href="style.css" />
-</head>
+:root {
+  --bg: #0b0d10;
+  --panel: #11151b;
+  --text: #e8edf5;
+  --muted: #a7b0bf;
+  --line: rgba(255,255,255,0.10);
+  --btn: rgba(255,255,255,0.10);
+  --btn2: rgba(255,255,255,0.18);
+  --accent: #ffffff;
+}
 
-<body>
-  <header class="top">
-    <div class="container top-inner">
-      <div class="brand">
-        <div class="avatar" aria-hidden="true">JHS</div>
-        <div class="brand-text">
-          <div class="name">James Hanyu Smith</div>
-          <div class="title">Mechatronics &amp; Facilities Maintenance Technician</div>
-        </div>
-      </div>
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
 
-      <nav class="nav">
-        <a href="#summary">Summary</a>
-        <a href="#experience">Work History</a>
-        <a href="#skills">Skills</a>
-        <a href="#certs">Certifications</a>
-        <a href="#fit">Fit Check</a>
-        <a href="#contact">Contact</a>
-      </nav>
-    </div>
-  </header>
+.container { width: min(1040px, calc(100% - 32px)); margin: 0 auto; }
 
-  <main class="container">
+.top {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: linear-gradient(to bottom, rgba(11,13,16,0.98), rgba(11,13,16,0.90));
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(8px);
+}
 
-    <!-- FIX: Add the missing Summary section and wrap your top content inside it -->
-    <section id="summary" class="card">
-      <h1>Facilities &amp; Maintenance Technician</h1>
-      <p class="muted">
-        Electromechanical systems technician with hands-on experience supporting large-scale automated facilities operating 24x7x365.
-        Focus areas include preventive maintenance, alarm response, rotating equipment troubleshooting, Variable Frequency Drive diagnostics,
-        and CMMS (Computerized Maintenance Management System) documentation.
-      </p>
+.top-inner {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 0 12px;
+}
 
-      <div class="hero-actions">
-        <a class="btn primary" href="Resume.pdf" target="_blank" rel="noopener">Open Resume PDF</a>
-        <a class="btn" href="https://www.linkedin.com/in/jameshanyusmith" target="_blank" rel="noopener">LinkedIn</a>
-        <a class="btn" href="https://github.com/LeoScorpioLeo/JamesHanyuSmith" target="_blank" rel="noopener">GitHub</a>
-      </div>
+.name { font-size: 22px; font-weight: 700; letter-spacing: 0.2px; }
+.tagline { margin-top: 4px; color: var(--muted); font-size: 14px; line-height: 1.3; }
+.meta { margin-top: 6px; color: var(--muted); font-size: 13px; }
 
-      <div class="stats">
-        <div class="stat">
-          <div class="stat-num">Facilities Operations</div>
-          <div class="stat-label">electrical and mechanical system support</div>
-        </div>
+.cta { display: flex; gap: 10px; flex-wrap: wrap; justify-content: flex-end; }
+.btn {
+  display: inline-block;
+  padding: 10px 12px;
+  border-radius: 10px;
+  text-decoration: none;
+  color: var(--text);
+  background: var(--btn);
+  border: 1px solid var(--line);
+  font-size: 14px;
+}
+.btn:hover { background: var(--btn2); }
+.btn.primary { background: var(--accent); color: #0b0d10; border-color: transparent; }
 
-        <div class="stat">
-          <div class="stat-num">Electrical &amp; Mechanical Systems</div>
-          <div class="stat-label">distribution and motor-driven equipment</div>
-        </div>
+.nav { border-top: 1px solid var(--line); }
+.nav-inner { display: flex; gap: 14px; padding: 10px 0; overflow-x: auto; }
+.nav a {
+  color: var(--muted);
+  text-decoration: none;
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  font-size: 14px;
+}
+.nav a:hover { color: var(--text); border-color: var(--line); background: rgba(255,255,255,0.06); }
 
-        <div class="stat">
-          <div class="stat-num">Operational Reliability</div>
-          <div class="stat-label">alarm response and safe recovery</div>
-        </div>
-      </div>
+.section {
+  padding: 28px 0;
+  border-bottom: 1px solid var(--line);
+  scroll-margin-top: 120px;
+}
 
-      <div class="card" style="margin-top: 14px;">
-        <h2>Quick Highlights</h2>
-        <ul class="bullets">
-          <li>Electrical distribution and motor control systems support</li>
-          <li>Preventive and corrective maintenance in uptime-critical facilities</li>
-          <li>Alarm response and controlled system recovery under live production</li>
-          <li>LOTO (Lockout/Tagout) and NFPA 70E (National Fire Protection Association 70E) qualified electrical work discipline</li>
-          <li>Reading and interpreting electrical schematics and system diagrams</li>
-        </ul>
-      </div>
-    </section>
+h2 { margin: 0 0 14px; font-size: 18px; }
+p { margin: 0; color: var(--text); line-height: 1.6; }
 
-    <!-- Everything below stays the same as your existing file -->
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+@media (max-width: 720px) {
+  .grid { grid-template-columns: 1fr; }
+  .top-inner { flex-direction: column; align-items: flex-start; }
+  .cta { justify-content: flex-start; }
+}
 
-    <section id="experience" class="card">
-      <div class="section-head">
-        <h2>Work history</h2>
-        <button class="ghost" type="button" data-action="expand-all">Expand all</button>
-      </div>
+.card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 12px;
+  color: var(--text);
+  line-height: 1.4;
+}
+.card-title { font-weight: 700; margin-bottom: 6px; }
+.card-body { color: var(--muted); font-size: 14px; }
 
-      <div class="timeline">
+.list { margin: 0; padding-left: 18px; color: var(--muted); line-height: 1.6; }
+.list li { margin: 6px 0; }
 
-        <div class="tl-item">
-          <div class="tl-dot"></div>
-          <div class="tl-content">
-            <div class="tl-top">
-              <div>
-                <div class="tl-role">Mechatronics &amp; Robotics Technician</div>
-                <div class="tl-meta">Daifuku Elite Line Services → Amazon.com Inc • Jun 2021 to Nov 2025 • Colorado Springs, CO</div>
-              </div>
-              <button class="toggle" type="button" aria-expanded="false">Details</button>
-            </div>
+.job {
+  margin-top: 14px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px;
+}
+.job-head { display: grid; gap: 4px; margin-bottom: 10px; }
+.job-title { font-weight: 700; }
+.job-org, .job-dates { color: var(--muted); font-size: 14px; }
 
-            <div class="tl-body" hidden>
-              <ul class="bullets">
-                <li>Initially hired through Daifuku Elite Line Services (third-party contractor) and later transitioned directly to Amazon when the service contract ended; responsibilities and scope remained consistent.</li>
-                <li>Supported electrical distribution and motor-driven systems in a high-volume, uptime-critical facility environment.</li>
-                <li>Performed preventive and corrective maintenance on motors, drives, conveyors, sensors, and control panels.</li>
-                <li>Worked with power distribution components and motor control circuits during troubleshooting and restoration activities.</li>
-                <li>Read and interpreted electrical schematics and system diagrams to isolate faults and verify repairs.</li>
-                <li>Responded to alarms and abnormal operating conditions during live production events with urgency and composure.</li>
-                <li>Assisted with equipment startup, reset, and controlled recovery procedures after downtime events.</li>
-                <li>Documented maintenance actions and equipment status in CMMS systems with clean, traceable notes.</li>
-                <li>Applied LOTO and NFPA 70E procedures without deviation as a Qualified Electrical Worker.</li>
-                <li>Worked rotating shifts, handled tools and components up to 50 lbs, and operated in PPE environments including elevated platforms and ladders.</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <div class="tl-item">
-          <div class="tl-dot"></div>
-          <div class="tl-content">
-            <div class="tl-top">
-              <div>
-                <div class="tl-role">Amazon DSP Delivery Driver</div>
-                <div class="tl-meta">Box Runner Ltd • Nov 2020 to Jun 2021 • Colorado Springs, CO</div>
-              </div>
-              <button class="toggle" type="button" aria-expanded="false">Details</button>
-            </div>
-
-            <div class="tl-body" hidden>
-              <ul class="bullets">
-                <li>Supported time-critical operations through independent route execution under strict safety and performance standards.</li>
-                <li>Conducted daily vehicle inspections, identified mechanical issues early, and followed documented procedures to maintain reliability.</li>
-                <li>Worked in a fast-paced environment requiring consistent pace, situational awareness, and safe decision-making.</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <div class="tl-item">
-          <div class="tl-dot"></div>
-          <div class="tl-content">
-            <div class="tl-top">
-              <div>
-                <div class="tl-role">Package Sortation Associate</div>
-                <div class="tl-meta">Amazon.com Inc • Jun 2020 to Nov 2020 • Colorado Springs, CO</div>
-              </div>
-              <button class="toggle" type="button" aria-expanded="false">Details</button>
-            </div>
-
-            <div class="tl-body" hidden>
-              <ul class="bullets">
-                <li>Supported warehouse operations in a high-volume environment through disciplined task execution and safety awareness.</li>
-                <li>Worked around automated equipment while following standardized procedures to maintain flow and accuracy.</li>
-                <li>Maintained clean handoffs and supported continuous operations through consistent performance.</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <div class="tl-item">
-          <div class="tl-dot"></div>
-          <div class="tl-content">
-            <div class="tl-top">
-              <div>
-                <div class="tl-role">Acting Store Manager</div>
-                <div class="tl-meta">Bishop’s Storehouse • Mar 2020 to May 2020 • Colorado Springs, CO</div>
-              </div>
-              <button class="toggle" type="button" aria-expanded="false">Details</button>
-            </div>
-
-            <div class="tl-body" hidden>
-              <ul class="bullets">
-                <li>Managed daily operational readiness, including scheduling, inventory control, safety checks, and basic building upkeep.</li>
-                <li>Coordinated staff and resources to maintain organized, compliant, and functional operations.</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <div class="tl-item">
-          <div class="tl-dot"></div>
-          <div class="tl-content">
-            <div class="tl-top">
-              <div>
-                <div class="tl-role">Convention Services Supervisor</div>
-                <div class="tl-meta">The Broadmoor • Jan 2018 to Mar 2020 • Colorado Springs, CO</div>
-              </div>
-              <button class="toggle" type="button" aria-expanded="false">Details</button>
-            </div>
-
-            <div class="tl-body" hidden>
-              <ul class="bullets">
-                <li>Supported equipment readiness and operational continuity in a high-visibility luxury hotel and convention center environment.</li>
-                <li>Coordinated setup, support, and teardown for large-scale events across multiple properties.</li>
-                <li>Trained staff on procedures and safety standards and coordinated with maintenance teams to resolve facility issues.</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <div class="tl-item">
-          <div class="tl-dot"></div>
-          <div class="tl-content">
-            <div class="tl-top">
-              <div>
-                <div class="tl-role">Commercial Truck Driver</div>
-                <div class="tl-meta">Melton Truck Lines (OTR Flatbed) • Nov 2016 to Dec 2017 • Tulsa, OK</div>
-              </div>
-              <button class="toggle" type="button" aria-expanded="false">Details</button>
-            </div>
-
-            <div class="tl-body" hidden>
-              <ul class="bullets">
-                <li>Accumulated extensive safe miles in regulated environments while maintaining strict compliance with safety and documentation requirements.</li>
-                <li>Performed daily pre-trip and post-trip inspections, identified mechanical issues, and escalated repair needs to prevent failures.</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <div class="tl-item">
-          <div class="tl-dot"></div>
-          <div class="tl-content">
-            <div class="tl-top">
-              <div>
-                <div class="tl-role">Commercial Truck Driver</div>
-                <div class="tl-meta">National Freight (Dedicated OTR Flatbed) • Feb 2016 to Sep 2016 • Cherry Hill, NJ</div>
-              </div>
-              <button class="toggle" type="button" aria-expanded="false">Details</button>
-            </div>
-
-            <div class="tl-body" hidden>
-              <ul class="bullets">
-                <li>Operated in a regulated environment with strict safety standards, inspections, and documentation requirements.</li>
-                <li>Completed daily vehicle inspections and identified mechanical issues early to support safe operations.</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <div class="tl-item">
-          <div class="tl-dot"></div>
-          <div class="tl-content">
-            <div class="tl-top">
-              <div>
-                <div class="tl-role">Commercial Truck Driver</div>
-                <div class="tl-meta">C.R. England (Dedicated Regional Reefer) • Sep 2014 to Apr 2016 • Denver, CO</div>
-              </div>
-              <button class="toggle" type="button" aria-expanded="false">Details</button>
-            </div>
-
-            <div class="tl-body" hidden>
-              <ul class="bullets">
-                <li>Maintained safe operations and on-time performance in a regulated regional environment.</li>
-                <li>Performed routine inspections and maintained compliance with safety and documentation requirements.</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <section id="skills" class="grid-2">
-      <div class="card">
-        <h2>Skills</h2>
-        <div class="chips">
-          <span class="chip">Electrical troubleshooting</span>
-          <span class="chip">Motor control systems</span>
-          <span class="chip">Power distribution components</span>
-          <span class="chip">VFD diagnostics</span>
-          <span class="chip">Sensors and control devices</span>
-          <span class="chip">Control panels</span>
-          <span class="chip">Preventive maintenance</span>
-          <span class="chip">Corrective maintenance</span>
-          <span class="chip">Alarm response</span>
-          <span class="chip">CMMS documentation</span>
-          <span class="chip">Root cause analysis</span>
-          <span class="chip">LOTO</span>
-          <span class="chip">NFPA 70E</span>
-          <span class="chip">Work at heights</span>
-        </div>
-      </div>
-
-      <div class="card">
-        <h2>Working style</h2>
-        <ul class="bullets">
-          <li>I triage fast, isolate the fault, restore service safely, then document cleanly.</li>
-          <li>I communicate equipment condition and risk clearly during handoff and downtime windows.</li>
-          <li>I stay disciplined on safety procedures in energized and mechanical hazard environments.</li>
-        </ul>
-      </div>
-    </section>
-
-    <section id="certs" class="grid-2">
-      <div class="card">
-        <h2>Certifications</h2>
-        <ul class="bullets">
-          <li>OSHA 30-Hour General Industry</li>
-          <li>NFPA 70E Qualified Electrical Worker</li>
-          <li>PMMI Industrial Electronics</li>
-          <li>PMMI Fluid Power</li>
-          <li>PMMI Mechanical Drives</li>
-          <li>PMMI Programmable Logic Controllers</li>
-          <li>Ramsay Mechanical Technician Assessment Levels 1 and 2</li>
-        </ul>
-      </div>
-
-      <div class="card">
-        <h2>Education</h2>
-        <ul class="bullets">
-          <li>Associate Degree, Computer Science: Network Systems Administration</li>
-        </ul>
-      </div>
-    </section>
-
-    <section id="fit" class="card">
-      <h2>Fit Check</h2>
-      <p class="muted">
-        Paste a job description. This runs locally in your browser and scores keyword alignment. It is a quick first pass.
-      </p>
-
-      <div class="fit">
-        <textarea id="jd" placeholder="Paste the job description here"></textarea>
-        <div class="fit-actions">
-          <button class="btn primary" type="button" id="runFit">Run fit check</button>
-          <button class="btn" type="button" id="clearFit">Clear</button>
-        </div>
-
-        <div class="fit-results" id="fitResults" hidden>
-          <div class="fit-score" id="fitScore"></div>
-          <div class="fit-cols">
-            <div>
-              <div class="fit-h">Strong matches</div>
-              <ul class="bullets" id="fitMatches"></ul>
-            </div>
-            <div>
-              <div class="fit-h">Gaps to address</div>
-              <ul class="bullets" id="fitGaps"></ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="contact" class="card">
-      <h2>Contact</h2>
-      <div class="contact">
-        <div>
-          <div class="contact-k">Email</div>
-          <div class="contact-v"><a href="mailto:jameshanyusmith@gmail.com">jameshanyusmith@gmail.com</a></div>
-        </div>
-        <div>
-          <div class="contact-k">Phone</div>
-          <div class="contact-v">719-210-0291</div>
-        </div>
-        <div>
-          <div class="contact-k">Location</div>
-          <div class="contact-v">Colorado Springs, CO</div>
-        </div>
-      </div>
-      <div class="foot">
-        <span>© <span id="year"></span> James Hanyu Smith</span>
-      </div>
-    </section>
-
-  </main>
-
-  <script src="app.js"></script>
-</body>
-</html>
+.footer { padding: 18px 0; }
+.footer-inner { display: flex; justify-content: space-between; gap: 12px; color: var(--muted); font-size: 13px; flex-wrap: wrap; }
+.footer a { color: var(--muted); text-decoration: none; }
+.footer a:hover { color: var(--text); }
