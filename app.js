@@ -1,202 +1,72 @@
-// app.js
+// script.js
+// Add this file if you do not already have one.
+// If you already have script.js, merge the functions below.
 
-function setYear() {
-  const y = document.getElementById("year");
-  if (y) y.textContent = new Date().getFullYear();
-}
+(function () {
+  function getHeaderOffset() {
+    var header = document.querySelector(".top");
+    if (!header) return 0;
+    return header.getBoundingClientRect().height + 10;
+  }
 
-function setupTimelineToggles() {
-  const toggles = document.querySelectorAll(".toggle");
-  toggles.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const content = btn.closest(".tl-content");
-      if (!content) return;
+  function smoothScrollWithOffset(targetId) {
+    var el = document.getElementById(targetId);
+    if (!el) return;
 
-      const body = content.querySelector(".tl-body");
-      if (!body) return;
+    var offset = getHeaderOffset();
+    var y = el.getBoundingClientRect().top + window.pageYOffset - offset;
 
-      const isOpen = btn.getAttribute("aria-expanded") === "true";
-      btn.setAttribute("aria-expanded", String(!isOpen));
-      btn.textContent = isOpen ? "Details" : "Hide";
-      body.hidden = isOpen;
-    });
-  });
+    window.scrollTo({ top: y, behavior: "smooth" });
+  }
 
-  const expandAll = document.querySelector('[data-action="expand-all"]');
-  if (expandAll) {
-    expandAll.addEventListener("click", () => {
-      const buttons = document.querySelectorAll(".toggle");
-      const anyClosed = Array.from(buttons).some(
-        (b) => b.getAttribute("aria-expanded") !== "true"
-      );
+  function onNavClick(e) {
+    var link = e.target.closest('a[href^="#"]');
+    if (!link) return;
 
-      buttons.forEach((b) => {
-        const content = b.closest(".tl-content");
-        if (!content) return;
-        const body = content.querySelector(".tl-body");
-        if (!body) return;
+    var id = link.getAttribute("href").slice(1);
+    if (!id) return;
 
-        b.setAttribute("aria-expanded", String(anyClosed));
-        b.textContent = anyClosed ? "Hide" : "Details";
-        body.hidden = !anyClosed;
-      });
+    e.preventDefault();
+    history.pushState(null, "", "#" + id);
+    smoothScrollWithOffset(id);
+  }
 
-      expandAll.textContent = anyClosed ? "Collapse all" : "Expand all";
+  function setActiveNav() {
+    var links = Array.prototype.slice.call(document.querySelectorAll('.nav a[href^="#"]'));
+    if (!links.length) return;
+
+    var offset = getHeaderOffset();
+    var fromTop = window.scrollY + offset + 2;
+
+    var currentId = "";
+    for (var i = 0; i < links.length; i++) {
+      var id = links[i].getAttribute("href").slice(1);
+      var section = document.getElementById(id);
+      if (!section) continue;
+
+      var top = section.offsetTop;
+      var bottom = top + section.offsetHeight;
+
+      if (fromTop >= top && fromTop < bottom) {
+        currentId = id;
+        break;
+      }
+    }
+
+    links.forEach(function (a) {
+      var id = a.getAttribute("href").slice(1);
+      if (id === currentId) a.classList.add("active");
+      else a.classList.remove("active");
     });
   }
-}
 
-function normalizeText(s) {
-  return (s || "")
-    .toLowerCase()
-    .replace(/[^a-z0-9+./\s-]/g, " ")
-    .replace(/\s+/g, " ")
-    .trim();
-}
-
-function uniq(arr) {
-  return Array.from(new Set(arr));
-}
-
-function scoreFit(jdText) {
-  const jd = normalizeText(jdText);
-
-  // Skills derived from your resume language.
-  // Keep these broad and stable so it works for many roles.
-  const keywords = [
-    "electromechanical",
-    "industrial automation",
-    "automation",
-    "maintenance",
-    "preventive maintenance",
-    "corrective maintenance",
-    "troubleshooting",
-    "diagnostics",
-    "root cause",
-    "reliability",
-    "safety",
-    "loto",
-    "lockout tagout",
-    "nfpa 70e",
-    "qualified electrical worker",
-    "cmms",
-    "work orders",
-    "motors",
-    "motor controls",
-    "variable frequency drive",
-    "vfd",
-    "powerflex",
-    "allen bradley",
-    "plc",
-    "programmable logic controller",
-    "sensors",
-    "control panels",
-    "control devices",
-    "conveyor",
-    "sortation",
-    "material handling",
-    "rotating equipment",
-    "mechanical drives",
-    "fluid power",
-    "schematics",
-    "test instruments",
-    "downtime",
-    "handoff"
-  ];
-
-  const hits = [];
-  const misses = [];
-
-  // Match logic:
-  // - Exact substring match for multi-word phrases
-  // - Word boundary-ish match for single tokens (best effort)
-  keywords.forEach((k) => {
-    const nk = normalizeText(k);
-    if (!nk) return;
-
-    const isPhrase = nk.includes(" ");
-    const found = isPhrase
-      ? jd.includes(nk)
-      : new RegExp(`\\b${nk.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\b`).test(jd);
-
-    if (found) hits.push(k);
-    else misses.push(k);
+  document.addEventListener("click", onNavClick);
+  window.addEventListener("scroll", setActiveNav, { passive: true });
+  window.addEventListener("load", function () {
+    setActiveNav();
+    if (location.hash) {
+      var id = location.hash.slice(1);
+      if (id) smoothScrollWithOffset(id);
+    }
   });
-
-  const uniqueHits = uniq(hits);
-  const uniqueMisses = uniq(misses);
-
-  const rawScore = uniqueHits.length / keywords.length;
-  const percent = Math.round(rawScore * 100);
-
-  // Show top misses that are most worth addressing in a resume/cover letter
-  // Keep list short and readable.
-  const gapShortlist = uniqueMisses
-    .filter((k) =>
-      [
-        "hvac",
-        "chillers",
-        "generators",
-        "ups",
-        "switchgear",
-        "bms",
-        "building management system"
-      ].every((x) => normalizeText(k) !== x)
-    )
-    .slice(0, 10);
-
-  return {
-    percent,
-    matches: uniqueHits.slice(0, 14),
-    gaps: gapShortlist
-  };
-}
-
-function setupFitCheck() {
-  const jd = document.getElementById("jd");
-  const run = document.getElementById("runFit");
-  const clear = document.getElementById("clearFit");
-  const results = document.getElementById("fitResults");
-  const score = document.getElementById("fitScore");
-  const matches = document.getElementById("fitMatches");
-  const gaps = document.getElementById("fitGaps");
-
-  if (!jd || !run || !clear || !results || !score || !matches || !gaps) return;
-
-  run.addEventListener("click", () => {
-    const text = jd.value || "";
-    const res = scoreFit(text);
-
-    score.textContent = `Fit score: ${res.percent}%`;
-    matches.innerHTML = "";
-    gaps.innerHTML = "";
-
-    res.matches.forEach((m) => {
-      const li = document.createElement("li");
-      li.textContent = m;
-      matches.appendChild(li);
-    });
-
-    res.gaps.forEach((g) => {
-      const li = document.createElement("li");
-      li.textContent = g;
-      gaps.appendChild(li);
-    });
-
-    results.hidden = false;
-  });
-
-  clear.addEventListener("click", () => {
-    jd.value = "";
-    results.hidden = true;
-    matches.innerHTML = "";
-    gaps.innerHTML = "";
-    score.textContent = "";
-  });
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-  setYear();
-  setupTimelineToggles();
-  setupFitCheck();
-});
+})();
