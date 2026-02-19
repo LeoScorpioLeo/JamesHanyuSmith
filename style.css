@@ -38,9 +38,8 @@ a:hover{text-decoration:underline}
 .top{
   position:sticky;
   top:0;
-  z-index:20;
-  backdrop-filter:blur(10px);
-  background:rgba(11,15,22,.65);
+  z-index:9999;
+  background:rgba(11,15,22,0.98);
   border-bottom:1px solid var(--line);
 }
 
