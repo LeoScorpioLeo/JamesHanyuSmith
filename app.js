@@ -22,88 +22,255 @@ function setupTimelineToggles() {
     });
   });
 
-  const expandAll = document.querySelector('[data-action="expand-all"]');
-  if (expandAll) {
-    expandAll.addEventListener("click", () => {
-      const buttons = document.querySelectorAll(".toggle");
-      const anyClosed = Array.from(buttons).some(
-        (b) => b.getAttribute("aria-expanded") !== "true"
-      );
 
-      buttons.forEach((b) => {
-        const content = b.closest(".tl-content");
-        if (!content) return;
-        const body = content.querySelector(".tl-body");
-        if (!body) return;
+ // Amazon RME Mechatronics keyword library
+// Built from MRA Apprentice, M&R Tech, Senior M&R Tech postings you pasted
 
-        b.setAttribute("aria-expanded", String(anyClosed));
-        b.textContent = anyClosed ? "Hide" : "Details";
-        body.hidden = !anyClosed;
-      });
+const KEYWORDS = [
+  // Org and environment
+  "Amazon",
+  "Operations",
+  "Reliability Maintenance & Engineering",
+  "RME",
+  "maintenance",
+  "continuous improvement",
+  "customer obsession",
+  "high-performance manufacturing systems",
+  "process efficiency",
+  "equipment availability",
+  "uptime",
+  "uptime-critical",
+  "automated packaging",
+  "distribution equipment",
+  "automated packaging and distribution equipment",
+  "automation",
+  "high automation",
+  "robotics",
+  "material handling equipment",
+  "MHE",
+  "material handling",
+  "conveyance",
+  "conveyance equipment",
+  "conveyor",
+  "automated conveyor systems",
+  "conveyor systems and controls",
+  "robotic work cells",
+  "robot cells",
+  "robotic operation",
+  "robotic maintenance",
+  "pneumatic systems",
+  "pneumatics",
+  "critical assets",
 
-      expandAll.textContent = anyClosed ? "Collapse all" : "Expand all";
-    });
-  }
-}
+  // Core duties verbs
+  "analyze",
+  "troubleshoot",
+  "troubleshooting",
+  "diagnose",
+  "diagnostics",
+  "repair",
+  "installation",
+  "install",
+  "maintain",
+  "maintenance and repair",
+  "preventative maintenance",
+  "preventive maintenance",
+  "predictive maintenance",
+  "preventative/predictive maintenance",
+  "job plans",
+  "procedures",
+  "manuals",
+  "technical documents",
+  "instructions",
+  "basic troubleshooting",
+  "electrical diagnostics",
+  "mechanical diagnostics",
 
-function normalizeText(s) {
-  return (s || "")
+  // Electrical and controls language
+  "electrical",
+  "mechanical",
+  "electronic",
+  "electrical and electronic principles",
+  "electrical principles",
+  "electronic principles",
+  "control skills",
+  "control components",
+  "controls",
+  "relay logic",
+  "ladder diagrams",
+  "ladder logic",
+  "blueprints",
+  "electrical schematics",
+  "schematics",
+  "wiring diagrams",
+  "control panels",
+  "PLC",
+  "programmable logic controller",
+  "PLC based controls systems",
+  "input and output",
+  "I/O",
+  "basic input and output function",
+
+  // Common components called out in postings
+  "belts",
+  "motors",
+  "motor starters",
+  "photo eyes",
+  "photo-eye",
+  "photo-eyes",
+  "relays",
+  "proximity sensors",
+  "proximity sensor",
+  "solenoids",
+  "tachs",
+  "tachometers",
+  "limit switches",
+  "limit switch",
+  "switches",
+
+  // Safety and physical requirements
+  "safe working environment",
+  "safe work practices",
+  "safety procedures",
+  "safety standards",
+  "implementing safety standards",
+  "PPE",
+  "personal protective equipment",
+  "climb ladders",
+  "ladders",
+  "gangways",
+  "stand and walk",
+  "12 hours",
+  "bending",
+  "lifting",
+  "stretching",
+  "reaching",
+  "49lbs",
+  "49 lbs",
+  "move up to 49lbs",
+
+  // Documentation and CMMS
+  "documentation",
+  "proper documentation",
+  "work orders",
+  "create and close out work orders",
+  "labor hours",
+  "parts used",
+  "job plans for emergency repair",
+  "CMMS",
+  "computerized maintenance management system",
+
+  // Team and communication
+  "effective communicator",
+  "work well in a team",
+  "self-motivated",
+  "collaboratively",
+  "coordinate",
+  "upstream",
+  "downstream",
+  "operations partners",
+  "positive working relationship",
+  "mentored",
+  "mentor",
+  "mentoring",
+  "train",
+  "training",
+  "train and mentor",
+  "junior technicians",
+  "service technicians",
+  "contract technicians",
+  "vendors",
+  "stakeholders",
+  "Safety",
+  "project management",
+  "manage projects",
+  "designing solutions",
+
+  // Senior specific adds
+  "Fire Life Safety",
+  "FLS",
+  "facility equipment",
+  "shift lead",
+  "lead a team",
+  "lead service technicians",
+  "develop training plans",
+  "planned repairs",
+  "emergency repairs",
+  "emergency repair",
+
+  // Qualifications terms used in postings
+  "high school diploma",
+  "GED",
+  "associate degree",
+  "associate's degree",
+  "Associate of Science",
+  "military experience",
+  "Microsoft Word",
+  "Microsoft Excel",
+  "Microsoft Outlook",
+  "Microsoft Office",
+  "PC software",
+  "math",
+  "mathematics",
+  "measurement reading",
+  "interpretation",
+  "mechanical aptitude test",
+  "flexible schedule",
+  "weekends",
+  "nights",
+  "holidays",
+  "apprenticeship",
+  "Mechatronics and Robotics Apprenticeship Program",
+  "MRA",
+  "OJL",
+  "on-the-job learning",
+  "relocate",
+  "flexible to relocate"
+];
+
+// Optional: synonym aliases to reduce false gaps.
+// Use this if your scoring checks exact strings.
+const ALIASES = [
+  ["preventative maintenance", "preventive maintenance"],
+  ["photo eyes", "photo-eyes"],
+  ["photo eye", "photo-eye"],
+  ["programmable logic controller", "PLC"],
+  ["computerized maintenance management system", "CMMS"],
+  ["material handling equipment", "MHE"],
+  ["fire life safety", "FLS"],
+  ["I/O", "input and output"]
+];
+  
+function normalize(text){
+  return (text || "")
     .toLowerCase()
-    .replace(/[^a-z0-9+./\s-]/g, " ")
+    .replace(/\u2011|\u2012|\u2013|\u2014/g, "-")   // normalize hyphen variants
+    .replace(/&/g, "and")
     .replace(/\s+/g, " ")
     .trim();
 }
+  
+function expandAliases(text){
+  let t = text;
+  for (const [a, b] of ALIASES){
+    if (t.includes(a.toLowerCase()) && !t.includes(b.toLowerCase())){
+      t += " " + b.toLowerCase();
+    }
+    if (t.includes(b.toLowerCase()) && !t.includes(a.toLowerCase())){
+      t += " " + a.toLowerCase();
+    }
+  }
+  return t;
+}
+
 
 function uniq(arr) {
   return Array.from(new Set(arr));
 }
 
 function scoreFit(jdText) {
-  const jd = normalizeText(jdText);
-
-  // Skills derived from your resume language.
-  // Keep these broad and stable so it works for many roles.
-  const keywords = [
-    "electromechanical",
-    "industrial automation",
-    "automation",
-    "maintenance",
-    "preventive maintenance",
-    "corrective maintenance",
-    "troubleshooting",
-    "diagnostics",
-    "root cause",
-    "reliability",
-    "safety",
-    "loto",
-    "lockout tagout",
-    "nfpa 70e",
-    "qualified electrical worker",
-    "cmms",
-    "work orders",
-    "motors",
-    "motor controls",
-    "variable frequency drive",
-    "vfd",
-    "powerflex",
-    "allen bradley",
-    "plc",
-    "programmable logic controller",
-    "sensors",
-    "control panels",
-    "control devices",
-    "conveyor",
-    "sortation",
-    "material handling",
-    "rotating equipment",
-    "mechanical drives",
-    "fluid power",
-    "schematics",
-    "test instruments",
-    "downtime",
-    "handoff"
-  ];
-
+  let jd = normalize(jdText);
+  jd = expandAliases(jd);
   const hits = [];
   const misses = [];
 
@@ -111,7 +278,7 @@ function scoreFit(jdText) {
   // - Exact substring match for multi-word phrases
   // - Word boundary-ish match for single tokens (best effort)
   keywords.forEach((k) => {
-    const nk = normalizeText(k);
+    const nk = normalize(k);
     if (!nk) return;
 
     const isPhrase = nk.includes(" ");
@@ -194,6 +361,33 @@ function setupFitCheck() {
     score.textContent = "";
   });
 }
+
+  
+  const expandAll = document.querySelector('[data-action="expand-all"]');
+  if (expandAll) {
+    expandAll.addEventListener("click", () => {
+      const buttons = document.querySelectorAll(".toggle");
+      const anyClosed = Array.from(buttons).some(
+        (b) => b.getAttribute("aria-expanded") !== "true"
+      );
+
+      buttons.forEach((b) => {
+        const content = b.closest(".tl-content");
+        if (!content) return;
+        const body = content.querySelector(".tl-body");
+        if (!body) return;
+
+        b.setAttribute("aria-expanded", String(anyClosed));
+        b.textContent = anyClosed ? "Hide" : "Details";
+        body.hidden = !anyClosed;
+      });
+
+      expandAll.textContent = anyClosed ? "Collapse all" : "Expand all";
+    });
+  }
+}
+
+
 
 document.addEventListener("DOMContentLoaded", () => {
   setYear();
