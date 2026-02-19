@@ -22,214 +22,33 @@ function setupTimelineToggles() {
     });
   });
 
+  const expandAll = document.querySelector('[data-action="expand-all"]');
+  if (expandAll) {
+    expandAll.addEventListener("click", () => {
+      const buttons = document.querySelectorAll(".toggle");
+      const anyClosed = Array.from(buttons).some(
+        (b) => b.getAttribute("aria-expanded") !== "true"
+      );
 
- // Amazon RME Mechatronics keyword library
-// Built from MRA Apprentice, M&R Tech, Senior M&R Tech postings you pasted
+      buttons.forEach((b) => {
+        const content = b.closest(".tl-content");
+        if (!content) return;
+        const body = content.querySelector(".tl-body");
+        if (!body) return;
 
-const KEYWORDS = [
-  // Org and environment
-  "Amazon",
-  "Operations",
-  "Reliability Maintenance & Engineering",
-  "RME",
-  "maintenance",
-  "continuous improvement",
-  "customer obsession",
-  "high-performance manufacturing systems",
-  "process efficiency",
-  "equipment availability",
-  "uptime",
-  "uptime-critical",
-  "automated packaging",
-  "distribution equipment",
-  "automated packaging and distribution equipment",
-  "automation",
-  "high automation",
-  "robotics",
-  "material handling equipment",
-  "MHE",
-  "material handling",
-  "conveyance",
-  "conveyance equipment",
-  "conveyor",
-  "automated conveyor systems",
-  "conveyor systems and controls",
-  "robotic work cells",
-  "robot cells",
-  "robotic operation",
-  "robotic maintenance",
-  "pneumatic systems",
-  "pneumatics",
-  "critical assets",
+        b.setAttribute("aria-expanded", String(anyClosed));
+        b.textContent = anyClosed ? "Hide" : "Details";
+        body.hidden = !anyClosed;
+      });
 
-  // Core duties verbs
-  "analyze",
-  "troubleshoot",
-  "troubleshooting",
-  "diagnose",
-  "diagnostics",
-  "repair",
-  "installation",
-  "install",
-  "maintain",
-  "maintenance and repair",
-  "preventative maintenance",
-  "preventive maintenance",
-  "predictive maintenance",
-  "preventative/predictive maintenance",
-  "job plans",
-  "procedures",
-  "manuals",
-  "technical documents",
-  "instructions",
-  "basic troubleshooting",
-  "electrical diagnostics",
-  "mechanical diagnostics",
+      expandAll.textContent = anyClosed ? "Collapse all" : "Expand all";
+    });
+  }
+}
 
-  // Electrical and controls language
-  "electrical",
-  "mechanical",
-  "electronic",
-  "electrical and electronic principles",
-  "electrical principles",
-  "electronic principles",
-  "control skills",
-  "control components",
-  "controls",
-  "relay logic",
-  "ladder diagrams",
-  "ladder logic",
-  "blueprints",
-  "electrical schematics",
-  "schematics",
-  "wiring diagrams",
-  "control panels",
-  "PLC",
-  "programmable logic controller",
-  "PLC based controls systems",
-  "input and output",
-  "I/O",
-  "basic input and output function",
+// Amazon RME Mechatronics keyword library
+const KEYWORDS = [ /* your full list */ ];
 
-  // Common components called out in postings
-  "belts",
-  "motors",
-  "motor starters",
-  "photo eyes",
-  "photo-eye",
-  "photo-eyes",
-  "relays",
-  "proximity sensors",
-  "proximity sensor",
-  "solenoids",
-  "tachs",
-  "tachometers",
-  "limit switches",
-  "limit switch",
-  "switches",
-
-  // Safety and physical requirements
-  "safe working environment",
-  "safe work practices",
-  "safety procedures",
-  "safety standards",
-  "implementing safety standards",
-  "PPE",
-  "personal protective equipment",
-  "climb ladders",
-  "ladders",
-  "gangways",
-  "stand and walk",
-  "12 hours",
-  "bending",
-  "lifting",
-  "stretching",
-  "reaching",
-  "49lbs",
-  "49 lbs",
-  "move up to 49lbs",
-
-  // Documentation and CMMS
-  "documentation",
-  "proper documentation",
-  "work orders",
-  "create and close out work orders",
-  "labor hours",
-  "parts used",
-  "job plans for emergency repair",
-  "CMMS",
-  "computerized maintenance management system",
-
-  // Team and communication
-  "effective communicator",
-  "work well in a team",
-  "self-motivated",
-  "collaboratively",
-  "coordinate",
-  "upstream",
-  "downstream",
-  "operations partners",
-  "positive working relationship",
-  "mentored",
-  "mentor",
-  "mentoring",
-  "train",
-  "training",
-  "train and mentor",
-  "junior technicians",
-  "service technicians",
-  "contract technicians",
-  "vendors",
-  "stakeholders",
-  "Safety",
-  "project management",
-  "manage projects",
-  "designing solutions",
-
-  // Senior specific adds
-  "Fire Life Safety",
-  "FLS",
-  "facility equipment",
-  "shift lead",
-  "lead a team",
-  "lead service technicians",
-  "develop training plans",
-  "planned repairs",
-  "emergency repairs",
-  "emergency repair",
-
-  // Qualifications terms used in postings
-  "high school diploma",
-  "GED",
-  "associate degree",
-  "associate's degree",
-  "Associate of Science",
-  "military experience",
-  "Microsoft Word",
-  "Microsoft Excel",
-  "Microsoft Outlook",
-  "Microsoft Office",
-  "PC software",
-  "math",
-  "mathematics",
-  "measurement reading",
-  "interpretation",
-  "mechanical aptitude test",
-  "flexible schedule",
-  "weekends",
-  "nights",
-  "holidays",
-  "apprenticeship",
-  "Mechatronics and Robotics Apprenticeship Program",
-  "MRA",
-  "OJL",
-  "on-the-job learning",
-  "relocate",
-  "flexible to relocate"
-];
-
-// Optional: synonym aliases to reduce false gaps.
-// Use this if your scoring checks exact strings.
 const ALIASES = [
   ["preventative maintenance", "preventive maintenance"],
   ["photo eyes", "photo-eyes"],
@@ -240,16 +59,16 @@ const ALIASES = [
   ["fire life safety", "FLS"],
   ["I/O", "input and output"]
 ];
-  
+
 function normalize(text){
   return (text || "")
     .toLowerCase()
-    .replace(/\u2011|\u2012|\u2013|\u2014/g, "-")   // normalize hyphen variants
+    .replace(/\u2011|\u2012|\u2013|\u2014/g, "-")
     .replace(/&/g, "and")
     .replace(/\s+/g, " ")
     .trim();
 }
-  
+
 function expandAliases(text){
   let t = text;
   for (const [a, b] of ALIASES){
@@ -262,7 +81,6 @@ function expandAliases(text){
   }
   return t;
 }
-
 
 function uniq(arr) {
   return Array.from(new Set(arr));
@@ -294,14 +112,13 @@ function scoreFit(jdText) {
   const rawScore = uniqueHits.length / KEYWORDS.length;
   const percent = Math.round(rawScore * 100);
 
-  const gapShortlist = uniqueMisses.slice(0, 10);
-
   return {
     percent,
     matches: uniqueHits.slice(0, 14),
-    gaps: gapShortlist
+    gaps: uniqueMisses.slice(0, 10)
   };
 }
+
 function setupFitCheck() {
   const jd = document.getElementById("jd");
   const run = document.getElementById("runFit");
@@ -345,36 +162,8 @@ function setupFitCheck() {
   });
 }
 
-  
-  const expandAll = document.querySelector('[data-action="expand-all"]');
-  if (expandAll) {
-    expandAll.addEventListener("click", () => {
-      const buttons = document.querySelectorAll(".toggle");
-      const anyClosed = Array.from(buttons).some(
-        (b) => b.getAttribute("aria-expanded") !== "true"
-      );
-
-      buttons.forEach((b) => {
-        const content = b.closest(".tl-content");
-        if (!content) return;
-        const body = content.querySelector(".tl-body");
-        if (!body) return;
-
-        b.setAttribute("aria-expanded", String(anyClosed));
-        b.textContent = anyClosed ? "Hide" : "Details";
-        body.hidden = !anyClosed;
-      });
-
-      expandAll.textContent = anyClosed ? "Collapse all" : "Expand all";
-    });
-  }
-}
-
-
-
 document.addEventListener("DOMContentLoaded", () => {
   setYear();
   setupTimelineToggles();
   setupFitCheck();
 });
-
