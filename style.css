@@ -117,3 +117,189 @@ p { margin: 0; color: var(--text); line-height: 1.6; }
 .footer-inner { display: flex; justify-content: space-between; gap: 12px; color: var(--muted); font-size: 13px; flex-wrap: wrap; }
 .footer a { color: var(--muted); text-decoration: none; }
 .footer a:hover { color: var(--text); }
+
+:root{
+  --bg0:#070a0f;
+  --bg1:#0b0f17;
+  --card:#0e1420;
+  --card2:#0c121d;
+  --line:rgba(255,255,255,.10);
+  --text:#eaf0ff;
+  --muted:rgba(234,240,255,.70);
+  --muted2:rgba(234,240,255,.55);
+  --pill:rgba(255,255,255,.06);
+  --pill2:rgba(255,255,255,.10);
+  --primary:#7aa2ff;
+  --primary2:#5f86ff;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  color:var(--text);
+  background:
+    radial-gradient(1200px 500px at 50% -10%, rgba(122,162,255,.18), transparent 60%),
+    radial-gradient(900px 420px at 80% 10%, rgba(255,255,255,.06), transparent 60%),
+    linear-gradient(180deg, var(--bg0), var(--bg1));
+}
+
+.site-header{
+  position:sticky;
+  top:0;
+  z-index:50;
+  background:linear-gradient(180deg, rgba(7,10,15,.92), rgba(7,10,15,.78));
+  backdrop-filter: blur(10px);
+  border-bottom:1px solid var(--line);
+}
+
+.header-inner{
+  width:min(1120px, calc(100% - 48px));
+  margin:0 auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+  padding:14px 0;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  min-width:260px;
+}
+
+.avatar{
+  width:40px;
+  height:40px;
+  border-radius:12px;
+  display:grid;
+  place-items:center;
+  font-weight:700;
+  letter-spacing:.5px;
+  background:rgba(122,162,255,.16);
+  border:1px solid rgba(122,162,255,.28);
+  color:rgba(234,240,255,.92);
+}
+
+.brand-name{font-weight:700; font-size:14px; line-height:1.1}
+.brand-sub{color:var(--muted2); font-size:12px; margin-top:2px}
+
+.nav-pills{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+}
+
+.pill{
+  text-decoration:none;
+  color:var(--muted);
+  font-size:12px;
+  padding:8px 12px;
+  border-radius:999px;
+  background:var(--pill);
+  border:1px solid var(--line);
+}
+
+.pill:hover{
+  color:var(--text);
+  background:var(--pill2);
+}
+
+.hero{
+  padding:40px 0 24px;
+}
+
+.hero-inner{
+  width:min(1120px, calc(100% - 48px));
+  margin:0 auto;
+}
+
+.hero-title{
+  margin:0;
+  font-size:48px;
+  line-height:1.05;
+  letter-spacing:-.02em;
+}
+
+.hero-lede{
+  margin:18px 0 0;
+  max-width:920px;
+  color:var(--muted);
+  line-height:1.6;
+  font-size:15px;
+}
+
+.hero-cards{
+  margin-top:22px;
+  display:grid;
+  grid-template-columns:repeat(3, minmax(0, 1fr));
+  gap:14px;
+}
+
+.mini-card{
+  background:linear-gradient(180deg, rgba(14,20,32,.92), rgba(12,18,29,.92));
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:14px 14px 12px;
+}
+
+.mini-title{font-weight:700; font-size:13px}
+.mini-sub{margin-top:4px; color:var(--muted2); font-size:12px}
+
+.hero-actions{
+  margin-top:18px;
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.btn{
+  text-decoration:none;
+  color:var(--text);
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.06);
+  padding:10px 14px;
+  border-radius:12px;
+  font-size:13px;
+}
+
+.btn:hover{background:rgba(255,255,255,.10)}
+
+.btn.primary{
+  background:linear-gradient(180deg, var(--primary), var(--primary2));
+  border-color:transparent;
+  color:#071021;
+  font-weight:700;
+}
+
+.panel{
+  margin-top:18px;
+  background:linear-gradient(180deg, rgba(14,20,32,.80), rgba(12,18,29,.80));
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:16px;
+}
+
+.panel-title{font-weight:800; font-size:14px; margin-bottom:10px}
+
+.panel-list{
+  margin:0;
+  padding-left:18px;
+  color:var(--muted);
+  line-height:1.7;
+  font-size:13px;
+}
+
+section{scroll-margin-top:92px}
+
+@media (max-width: 980px){
+  .hero-title{font-size:38px}
+  .hero-cards{grid-template-columns:1fr}
+  .header-inner{flex-direction:column; align-items:flex-start}
+  .nav-pills{justify-content:flex-start}
+}
+
