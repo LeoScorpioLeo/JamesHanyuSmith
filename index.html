@@ -1,119 +1,185 @@
-:root {
-  --bg: #0b0d10;
-  --panel: #11151b;
-  --text: #e8edf5;
-  --muted: #a7b0bf;
-  --line: rgba(255,255,255,0.10);
-  --btn: rgba(255,255,255,0.10);
-  --btn2: rgba(255,255,255,0.18);
-  --accent: #ffffff;
-}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>James Hanyu Smith | Facilities & Critical Infrastructure Technician</title>
+  <meta name="description" content="Electromechanical Systems Technician. Preventive maintenance, alarm response, VFD diagnostics, CMMS documentation, safety-first operations." />
+  <link rel="stylesheet" href="style.css" />
+</head>
 
-* { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body {
-  margin: 0;
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  background: var(--bg);
-  color: var(--text);
-}
+<body>
+  <header class="top">
+    <div class="container top-inner">
+      <div class="brand">
+        <div class="name">James Hanyu Smith</div>
+        <div class="tagline">Facilities & Critical Infrastructure Technician | Electromechanical Systems | Reliability</div>
+        <div class="meta">Colorado Springs, CO</div>
+      </div>
 
-.container { width: min(1040px, calc(100% - 32px)); margin: 0 auto; }
+      <div class="cta">
+        <a class="btn" href="mailto:jameshanyusmith@gmail.com">Email</a>
+        <a class="btn" href="https://www.linkedin.com/in/jameshanyusmith/" target="_blank" rel="noreferrer">LinkedIn</a>
+        <a class="btn primary" href="resume/James_Hanyu_Smith_Master_Resume.pdf" target="_blank" rel="noreferrer">Download Resume PDF</a>
+      </div>
+    </div>
 
-.top {
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  background: linear-gradient(to bottom, rgba(11,13,16,0.98), rgba(11,13,16,0.90));
-  border-bottom: 1px solid var(--line);
-  backdrop-filter: blur(8px);
-}
+    <nav class="nav">
+      <div class="container nav-inner">
+        <a href="#summary">Summary</a>
+        <a href="#skills">Skills</a>
+        <a href="#certs">Certifications</a>
+        <a href="#work">Work History</a>
+        <a href="#education">Education</a>
+        <a href="#alignment">Role Alignment</a>
+      </div>
+    </nav>
+  </header>
 
-.top-inner {
-  display: flex;
-  gap: 16px;
-  align-items: center;
-  justify-content: space-between;
-  padding: 18px 0 12px;
-}
+  <main>
+    <section id="summary" class="section">
+      <div class="container">
+        <h2>Professional Summary</h2>
+        <p>
+          Electromechanical Systems Technician with 4+ years supporting large-scale automated mechanical and electrical systems in uptime-critical environments operating 24x7x365.
+          Experienced in preventive maintenance, alarm response, rotating equipment troubleshooting, Variable Frequency Drive diagnostics, motor-driven assemblies, electrical safety compliance, and structured documentation in Computerized Maintenance Management Systems.
+        </p>
+      </div>
+    </section>
 
-.name { font-size: 22px; font-weight: 700; letter-spacing: 0.2px; }
-.tagline { margin-top: 4px; color: var(--muted); font-size: 14px; line-height: 1.3; }
-.meta { margin-top: 6px; color: var(--muted); font-size: 13px; }
+    <section id="skills" class="section">
+      <div class="container">
+        <h2>Core Skills</h2>
+        <div class="grid">
+          <div class="card">Preventive and corrective maintenance</div>
+          <div class="card">Alarm monitoring and fault response</div>
+          <div class="card">Vendor escort and facilities coordination</div>
+          <div class="card">CMMS work orders and documentation</div>
+          <div class="card">Motor and drive assemblies</div>
+          <div class="card">VFD (Variable Frequency Drive) diagnostics (Allen-Bradley PowerFlex)</div>
+          <div class="card">PLC (Programmable Logic Controller) basics: signal verification and fault monitoring</div>
+          <div class="card">LOTO (Lockout Tagout)</div>
+          <div class="card">NFPA 70E electrical safety compliance</div>
+          <div class="card">Root cause analysis</div>
+          <div class="card">Shift work in 24x7 operations</div>
+        </div>
+      </div>
+    </section>
 
-.cta { display: flex; gap: 10px; flex-wrap: wrap; justify-content: flex-end; }
-.btn {
-  display: inline-block;
-  padding: 10px 12px;
-  border-radius: 10px;
-  text-decoration: none;
-  color: var(--text);
-  background: var(--btn);
-  border: 1px solid var(--line);
-  font-size: 14px;
-}
-.btn:hover { background: var(--btn2); }
-.btn.primary { background: var(--accent); color: #0b0d10; border-color: transparent; }
+    <section id="certs" class="section">
+      <div class="container">
+        <h2>Certifications</h2>
+        <ul class="list">
+          <li>OSHA 30-Hour General Industry</li>
+          <li>NFPA 70E Qualified Electrical Worker</li>
+          <li>PMMI Industrial Electronics</li>
+          <li>PMMI PLC</li>
+          <li>PMMI Mechanical Drives</li>
+          <li>PMMI Fluid Power</li>
+          <li>Ramsay Maintenance Technician Assessments Levels 1 and 2</li>
+          <li>Eagle Scout</li>
+        </ul>
+      </div>
+    </section>
 
-.nav { border-top: 1px solid var(--line); }
-.nav-inner { display: flex; gap: 14px; padding: 10px 0; overflow-x: auto; }
-.nav a {
-  color: var(--muted);
-  text-decoration: none;
-  padding: 8px 10px;
-  border-radius: 10px;
-  border: 1px solid transparent;
-  white-space: nowrap;
-  font-size: 14px;
-}
-.nav a:hover { color: var(--text); border-color: var(--line); background: rgba(255,255,255,0.06); }
+    <section id="work" class="section">
+      <div class="container">
+        <h2>Work History</h2>
 
-.section {
-  padding: 28px 0;
-  border-bottom: 1px solid var(--line);
-  scroll-margin-top: 120px;
-}
+        <div class="job">
+          <div class="job-head">
+            <div class="job-title">Mechatronics and Robotics Technician</div>
+            <div class="job-org">Amazon, Colorado Springs, CO</div>
+            <div class="job-dates">2021 to 2025</div>
+          </div>
+          <ul class="list">
+            <li>Performed electromechanical troubleshooting on motors, drive assemblies, rotating equipment, sensors, and control devices in an uptime-critical environment.</li>
+            <li>Diagnosed and restored motion systems utilizing VFD (Variable Frequency Drive) technology.</li>
+            <li>Executed scheduled preventive maintenance routes and documented actions in CMMS platforms.</li>
+            <li>Responded to equipment alarms and downtime events according to documented procedures.</li>
+            <li>Applied LOTO (Lockout Tagout) and NFPA 70E electrical safety practices as a qualified electrical worker.</li>
+          </ul>
+        </div>
 
-h2 { margin: 0 0 14px; font-size: 18px; }
-p { margin: 0; color: var(--text); line-height: 1.6; }
+        <div class="job">
+          <div class="job-head">
+            <div class="job-title">Mechatronics and Robotics Technician / Apprentice</div>
+            <div class="job-org">Daifuku America, Colorado Springs, CO</div>
+            <div class="job-dates">2021 to 2024</div>
+          </div>
+          <ul class="list">
+            <li>Completed structured apprenticeship focused on industrial maintenance, automation fundamentals, mechanical drives, electrical systems, and fluid power.</li>
+            <li>Conducted mechanical repairs, alignment, belt tensioning, component replacement, and fault verification using schematics and meters.</li>
+          </ul>
+        </div>
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px;
-}
-@media (max-width: 720px) {
-  .grid { grid-template-columns: 1fr; }
-  .top-inner { flex-direction: column; align-items: flex-start; }
-  .cta { justify-content: flex-start; }
-}
+        <div class="job">
+          <div class="job-head">
+            <div class="job-title">Convention Services Supervisor and Certified Trainer</div>
+            <div class="job-org">The Broadmoor, Colorado Springs, CO</div>
+            <div class="job-dates">2018 to 2020</div>
+          </div>
+          <ul class="list">
+            <li>Supported operational readiness in a public-facing environment with equipment inspections, safety walkthroughs, and fast changes during live events.</li>
+            <li>Coordinated facilities logistics and vendor-facing event support.</li>
+          </ul>
+        </div>
 
-.card {
-  background: var(--panel);
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  padding: 12px;
-  color: var(--text);
-  line-height: 1.4;
-}
-.card-title { font-weight: 700; margin-bottom: 6px; }
-.card-body { color: var(--muted); font-size: 14px; }
+        <div class="job">
+          <div class="job-head">
+            <div class="job-title">Acting Store Manager</div>
+            <div class="job-org">Bishop’s Storehouse, Colorado Springs, CO</div>
+            <div class="job-dates">2020</div>
+          </div>
+          <ul class="list">
+            <li>Oversaw building inspections, equipment readiness checks, hazard recognition walkthroughs, and vendor access coordination.</li>
+          </ul>
+        </div>
 
-.list { margin: 0; padding-left: 18px; color: var(--muted); line-height: 1.6; }
-.list li { margin: 6px 0; }
+      </div>
+    </section>
 
-.job {
-  margin-top: 14px;
-  background: var(--panel);
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  padding: 14px;
-}
-.job-head { display: grid; gap: 4px; margin-bottom: 10px; }
-.job-title { font-weight: 700; }
-.job-org, .job-dates { color: var(--muted); font-size: 14px; }
+    <section id="education" class="section">
+      <div class="container">
+        <h2>Education</h2>
+        <ul class="list">
+          <li>Associate of Applied Science, Computer Science (Network Systems Administration), IntelliTec College</li>
+          <li>Vocational Certificate, Mechatronics, Robotics, and Automation Engineering, Vincennes University</li>
+          <li>Associate of Science, Chemical Process Technology, San Jacinto College</li>
+        </ul>
+      </div>
+    </section>
 
-.footer { padding: 18px 0; }
-.footer-inner { display: flex; justify-content: space-between; gap: 12px; color: var(--muted); font-size: 13px; flex-wrap: wrap; }
-.footer a { color: var(--muted); text-decoration: none; }
-.footer a:hover { color: var(--text); }
+    <section id="alignment" class="section">
+      <div class="container">
+        <h2>Role Alignment</h2>
+        <div class="grid">
+          <div class="card">
+            <div class="card-title">Data Center Operations</div>
+            <div class="card-body">Preventive maintenance, alarm response, procedure compliance, vendor escort support, CMMS documentation, 24x7 operations discipline.</div>
+          </div>
+          <div class="card">
+            <div class="card-title">Industrial Maintenance</div>
+            <div class="card-body">Electromechanical troubleshooting, rotating equipment, motors and drives, VFD diagnostics, safety-first execution.</div>
+          </div>
+          <div class="card">
+            <div class="card-title">Field Service Readiness</div>
+            <div class="card-body">Structured diagnostics, documentation, professional communication, safety compliance, high accountability in live operations.</div>
+          </div>
+          <div class="card">
+            <div class="card-title">Public-Facing Facilities</div>
+            <div class="card-body">Operational support in guest-facing environments, rapid change handling, vendor coordination, safety walkthroughs.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div>James Hanyu Smith</div>
+      <div><a href="mailto:jameshanyusmith@gmail.com">jameshanyusmith@gmail.com</a> | 719-210-0291</div>
+    </div>
+  </footer>
+</body>
+</html>
