@@ -271,13 +271,11 @@ function uniq(arr) {
 function scoreFit(jdText) {
   let jd = normalize(jdText);
   jd = expandAliases(jd);
+
   const hits = [];
   const misses = [];
 
-  // Match logic:
-  // - Exact substring match for multi-word phrases
-  // - Word boundary-ish match for single tokens (best effort)
-  keywords.forEach((k) => {
+  KEYWORDS.forEach((k) => {
     const nk = normalize(k);
     if (!nk) return;
 
@@ -293,24 +291,10 @@ function scoreFit(jdText) {
   const uniqueHits = uniq(hits);
   const uniqueMisses = uniq(misses);
 
-  const rawScore = uniqueHits.length / keywords.length;
+  const rawScore = uniqueHits.length / KEYWORDS.length;
   const percent = Math.round(rawScore * 100);
 
-  // Show top misses that are most worth addressing in a resume/cover letter
-  // Keep list short and readable.
-  const gapShortlist = uniqueMisses
-    .filter((k) =>
-      [
-        "hvac",
-        "chillers",
-        "generators",
-        "ups",
-        "switchgear",
-        "bms",
-        "building management system"
-      ].every((x) => normalizeText(k) !== x)
-    )
-    .slice(0, 10);
+  const gapShortlist = uniqueMisses.slice(0, 10);
 
   return {
     percent,
@@ -318,7 +302,6 @@ function scoreFit(jdText) {
     gaps: gapShortlist
   };
 }
-
 function setupFitCheck() {
   const jd = document.getElementById("jd");
   const run = document.getElementById("runFit");
