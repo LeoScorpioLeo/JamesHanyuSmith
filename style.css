@@ -138,10 +138,13 @@ a:hover{text-decoration:underline}
 }
 
 .hero-title{
-  grid-column:1 / -1;
   font-size:clamp(28px, 3vw, 42px);
-  margin:0 0 6px 0;
+  margin:0 0 10px 0;
   white-space:normal;
+  letter-spacing:0.5px;
+  font-family:'League Spartan', ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  font-weight:600;
+  line-height:1.05;
 }
 
 .hero-actions{
