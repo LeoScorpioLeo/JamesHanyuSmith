@@ -36,7 +36,7 @@ a:hover{text-decoration:underline}
 }
 
 .top{
-  position:sticky;
+  position:relative; z-index:1; 
   top:0;
   z-index:9999;
   background:rgba(11,15,22,0.98);
