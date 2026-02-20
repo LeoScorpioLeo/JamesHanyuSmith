@@ -353,22 +353,13 @@ Coursework included technical writing, business communication, Microsoft Office 
           <button class="btn" type="button" id="clearFit">Clear</button>
         </div>
 
-        <div class="fit-results" id="fitResults" hidden>
-          <div class="fit-score" id="fitScore"></div>
-          <div class="fit-cols">
-            <div>
-              <div class="fit-h">Strong matches</div>
-              <ul class="bullets" id="fitMatches"></ul>
-            </div>
-            <div>
-              <div class="fit-h">Gaps to address</div>
-              <ul class="bullets" id="fitGaps"></ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
+       <div class="fit-results" id="fitResults" hidden>
+  <div class="fit-header" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
+    <div class="fit-score" id="fitScore" style="font-size: 24px; font-weight: 900;"></div>
+    <div class="progress-container" style="width: 200px; height: 10px; background: var(--line); border-radius: 5px; overflow: hidden;">
+      <div id="fitBar" style="height: 100%; width: 0%; background: var(--good); transition: width 1s ease-in-out;"></div>
+    </div>
+  </div>
     <section id="contact" class="card">
       <h2>Contact</h2>
       <div class="contact">
