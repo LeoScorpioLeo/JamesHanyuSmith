@@ -321,19 +321,32 @@
       </div>
 
       <div class="card">
-        <h2>Education</h2>
-        <ul class="bullets">
-          <li>Associate Degree, Computer Science – Network Systems Administration
-Coursework included technical writing, business communication, Microsoft Office systems, networking fundamentals, and systems administration principles.</li>
-        </ul>
+  <h2>Education</h2>
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-content">
+        <div class="tl-top">
+          <div>
+            <div class="tl-role">Associate Degree, Computer Science</div>
+            <div class="tl-meta">Network Systems Administration</div>
+          </div>
+          <button class="toggle" type="button" aria-expanded="false">Details</button>
+        </div>
+        <div class="tl-body" hidden>
+          <p style="margin-top: 10px; font-weight: 700; color: var(--accent);">Colorado Technical University</p>
+          <ul class="bullets">
+            <li>Technical Writing & Business Communication</li>
+            <li>Microsoft Office Systems & Database Fundamentals</li>
+            <li>Networking Fundamentals & TCP/IP</li>
+            <li>Systems Administration Principles</li>
+            <li>Security Compliance and Risk Management</li>
+          </ul>
+        </div>
       </div>
-    </section>
-
-    <section id="fit" class="card">
-      <h2>Fit Check</h2>
-      <p class="muted">
-        Paste a job description. This runs locally in your browser and scores keyword alignment. It is a quick first pass.
-      </p>
+    </div>
+  </div>
+</div>
 
       <div class="fit">
         <textarea id="jd" placeholder="Paste the job description here"></textarea>
