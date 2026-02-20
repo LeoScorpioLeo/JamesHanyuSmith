@@ -199,7 +199,7 @@ function setupFitCheck() {
 
   if (!jd || !run || !clear || !results || !score || !matches || !gaps) return;
 
-  run.addEventListener("click", () => {
+  document.getElementById("fitBar").style.width = res.percent + "%";
     const jdText = jd.value || "";
 
     const resumeSections = Array.from(document.querySelectorAll("main section"))
