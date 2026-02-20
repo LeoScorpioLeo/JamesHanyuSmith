@@ -407,10 +407,10 @@ h2{
   margin-bottom:10px;
 }
 
-.fit-cols{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:16px;
+.fit-cols {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 @media (max-width:900px){
