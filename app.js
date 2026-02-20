@@ -126,82 +126,65 @@ function tokenFilter(token) {
 
 function extractKeywordsFromJD(jdText) {
   let jd = expandAliases(normalize(jdText));
-
-  for (const phrase of PHRASE_WHITELIST) {
-    const p = normalize(phrase);
-    if (jd.includes(p)) {
-      jd = jd.replaceAll(p, p.replace(/\s+/g, "_"));
-    }
-  }
-
   const words = jd.split(" ").filter(Boolean);
   const counts = new Map();
 
-  function addGram(g) {
-    const cleaned = g.trim();
-    if (!cleaned) return;
+  // 1. Identify phrases and weight them
+  PHRASE_WHITELIST.forEach(phrase => {
+    const p = normalize(phrase);
+    if (jd.includes(p)) {
+      // Whitelist phrases get a "Weight Bonus" of 5
+      counts.set(phrase, (counts.get(phrase) || 0) + 5);
+    }
+  });
 
-    const restored = cleaned.replace(/_/g, " ");
-    const tokens = restored.split(" ").filter(Boolean);
-    const goodTokens = tokens.filter(tokenFilter);
-    if (goodTokens.length === 0) return;
-    if (goodTokens.length / tokens.length < 0.6) return;
-
-    counts.set(restored, (counts.get(restored) || 0) + 1);
-  }
-
+  // 2. Count N-grams (1 to 3 words)
   for (let i = 0; i < words.length; i++) {
-    addGram(words[i]);
-    addGram(words.slice(i, i + 2).join(" "));
-    addGram(words.slice(i, i + 3).join(" "));
-    addGram(words.slice(i, i + 4).join(" "));
+    [1, 2, 3].forEach(n => {
+      const gram = words.slice(i, i + n).join(" ");
+      if (gram && gram.length > 3) {
+        const tokens = gram.split(" ");
+        // Filter out grams that are mostly stopwords
+        if (tokens.every(tokenFilter)) {
+          counts.set(gram, (counts.get(gram) || 0) + 1);
+        }
+      }
+    });
   }
 
-  const ranked = Array.from(counts.entries())
-    .map(([term, freq]) => ({ term, freq, len: term.split(" ").length }))
-    .filter((x) => x.term.length >= 3)
-    .sort((a, b) => (b.len - a.len) || (b.freq - a.freq) || a.term.localeCompare(b.term));
-
-  const selected = [];
-  for (const item of ranked) {
-    const t = item.term;
-    const covered = selected.some((s) => s.includes(t) || t.includes(s));
-    if (!covered) selected.push(t);
-    if (selected.length >= 40) break;
-  }
-
-  return selected;
-}
-
-function termInText(term, text) {
-  const nt = normalize(term);
-  if (!nt) return false;
-
-  if (nt.includes(" ")) return text.includes(nt);
-
-  return new RegExp(`\\b${nt.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\b`).test(text);
+  // 3. Rank by Weight (Frequency + Whitelist Bonus)
+  return Array.from(counts.entries())
+    .sort((a, b) => b[1] - a[1]) 
+    .slice(0, 30) // Take the top 30 most relevant
+    .map(entry => ({ term: entry[0], weight: entry[1] }));
 }
 
 function scoreFitV2(resumeText, jdText) {
   const resume = expandAliases(normalize(resumeText));
-  const jdTerms = extractKeywordsFromJD(jdText);
+  const jdKeywords = extractKeywordsFromJD(jdText);
 
+  let earnedPoints = 0;
+  let totalPossiblePoints = 0;
   const matches = [];
   const gaps = [];
 
-  jdTerms.forEach((term) => {
-    if (termInText(term, resume)) matches.push(term);
-    else gaps.push(term);
+  jdKeywords.forEach(({ term, weight }) => {
+    totalPossiblePoints += weight;
+    if (termInText(term, resume)) {
+      earnedPoints += weight;
+      matches.push(term);
+    } else {
+      gaps.push(term);
+    }
   });
 
-  const denom = jdTerms.length || 1;
-  const percent = Math.round((matches.length / denom) * 100);
+  const percent = totalPossiblePoints > 0 ? Math.round((earnedPoints / totalPossiblePoints) * 100) : 0;
 
   return {
     percent,
-    matches: uniq(matches).slice(0, 14),
-    gaps: uniq(gaps).slice(0, 14),
-    extractedCount: jdTerms.length
+    matches: matches.slice(0, 15),
+    gaps: gaps.slice(0, 15),
+    weightedScore: earnedPoints
   };
 }
 
