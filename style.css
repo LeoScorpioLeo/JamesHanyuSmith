@@ -448,9 +448,12 @@ h2{
   line-height:1.4;
 }
 
-.foot{
-  margin-top:12px;
-  color:var(--muted);
+.foot {
+  margin-top: 12px;
+  color: var(--muted);
+  font-size: 13px;
+} 
+
 
   /* Pro-level Interaction */
 .card, .panel, .stat, .tl-content {
