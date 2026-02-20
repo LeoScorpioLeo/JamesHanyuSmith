@@ -302,19 +302,18 @@ h2{
   color:var(--text);
 }
 
-.timeline{
-  margin-top:8px;
-  display:flex;
-  flex-direction:column;
-  gap:12px;
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .tl-item {
   display: flex;
-  flex-direction: row; /* Dot on the left, content on the right */
+  flex-direction: row;
   gap: 15px;
-  margin-bottom: 24px;
   position: relative;
+  width: 100%;
 }
 
 .tl-dot{
@@ -328,7 +327,11 @@ h2{
 
 .tl-content {
   flex: 1;
-  min-width: 0; /* Prevents text from pushing the box off-screen */
+  background: rgba(16, 24, 38, 0.5);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 15px;
+  /* This prevents the horizontal overlap */
   display: flex;
   flex-direction: column;
 }
@@ -346,26 +349,18 @@ h2{
 .tl-top {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  margin-bottom: 10px;
+  gap: 5px;
 }
 
 .tl-body{
   margin-top:6px;
 }
 
-.toggle{
-  display:block;
-  width:100%;
-  margin-top:8px;
-  padding:8px 12px;
-  border:1px solid var(--line);
-  border-radius:12px;
-  background:rgba(22,34,53,.65);
-  color:var(--text);
-  font-weight:600;
-  text-align:center;
-  cursor:pointer;
+.toggle {
+  align-self: flex-start; /* Keeps the button from stretching too wide */
+  width: auto;
+  min-width: 100px;
+  margin-top: 10px;
 }
 
 .toggle:hover{
