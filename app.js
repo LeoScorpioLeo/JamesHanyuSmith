@@ -46,7 +46,7 @@ function setupTimelineToggles() {
   }
 }
 
-// ---------- Fit Check v2: Extract keywords from JD, then compare to resume ----------
+// ---------- Fit Check Logic ----------
 
 const STOPWORDS = new Set([
   "a","an","and","are","as","at","be","but","by","for","from","has","have","in","into",
@@ -112,10 +112,6 @@ function expandAliases(text) {
   return t;
 }
 
-function uniq(arr) {
-  return Array.from(new Set(arr));
-}
-
 function tokenFilter(token) {
   if (!token) return false;
   if (token.length < 3) return false;
@@ -124,21 +120,25 @@ function tokenFilter(token) {
   return true;
 }
 
+function termInText(term, text) {
+  const nt = normalize(term);
+  if (!nt) return false;
+  if (nt.includes(" ")) return text.includes(nt);
+  return new RegExp(`\\b${nt.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\b`).test(text);
+}
+
 function extractKeywordsFromJD(jdText) {
   let jd = expandAliases(normalize(jdText));
   const words = jd.split(" ").filter(Boolean);
   const counts = new Map();
 
-  // 1. Identify phrases and weight them
   PHRASE_WHITELIST.forEach(phrase => {
     const p = normalize(phrase);
     if (jd.includes(p)) {
-      // Whitelist phrases get a "Weight Bonus"
       counts.set(phrase, (counts.get(phrase) || 0) + 5);
     }
   });
 
-  // 2. Count N-grams (1 to 3 words)
   for (let i = 0; i < words.length; i++) {
     [1, 2, 3].forEach(n => {
       const gram = words.slice(i, i + n).join(" ");
@@ -151,7 +151,6 @@ function extractKeywordsFromJD(jdText) {
     });
   }
 
-  // 3. Rank by Weight
   return Array.from(counts.entries())
     .sort((a, b) => b[1] - a[1]) 
     .slice(0, 30)
@@ -181,30 +180,9 @@ function scoreFitV2(resumeText, jdText) {
 
   return {
     percent,
-    matches: matches.slice(0, 15),
-    gaps: gaps.slice(0, 15),
-    weightedScore: earnedPoints,
+    matches: Array.from(new Set(matches)).slice(0, 15),
+    gaps: Array.from(new Set(gaps)).slice(0, 15),
     extractedCount: jdKeywords.length
-  };
-}
-
-  jdKeywords.forEach(({ term, weight }) => {
-    totalPossiblePoints += weight;
-    if (termInText(term, resume)) {
-      earnedPoints += weight;
-      matches.push(term);
-    } else {
-      gaps.push(term);
-    }
-  });
-
-  const percent = totalPossiblePoints > 0 ? Math.round((earnedPoints / totalPossiblePoints) * 100) : 0;
-
-  return {
-    percent,
-    matches: matches.slice(0, 15),
-    gaps: gaps.slice(0, 15),
-    weightedScore: earnedPoints
   };
 }
 
@@ -216,20 +194,24 @@ function setupFitCheck() {
   const score = document.getElementById("fitScore");
   const matches = document.getElementById("fitMatches");
   const gaps = document.getElementById("fitGaps");
+  const fitBar = document.getElementById("fitBar");
 
   if (!jd || !run || !clear || !results || !score || !matches || !gaps) return;
 
-  document.getElementById("fitBar").style.width = res.percent + "%";
+  run.addEventListener("click", () => {
     const jdText = jd.value || "";
-
     const resumeSections = Array.from(document.querySelectorAll("main section"))
       .filter((s) => s.id !== "fit");
 
     const resumeText = resumeSections.map((s) => s.innerText).join(" ");
-
     const res = scoreFitV2(resumeText, jdText);
 
     score.textContent = `Fit score: ${res.percent}% (from ${res.extractedCount} JD terms)`;
+    
+    if (fitBar) {
+        fitBar.style.width = res.percent + "%";
+    }
+
     matches.innerHTML = "";
     gaps.innerHTML = "";
 
@@ -254,6 +236,7 @@ function setupFitCheck() {
     matches.innerHTML = "";
     gaps.innerHTML = "";
     score.textContent = "";
+    if (fitBar) fitBar.style.width = "0%";
   });
 }
 
