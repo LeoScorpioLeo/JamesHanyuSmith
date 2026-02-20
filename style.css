@@ -471,6 +471,4 @@ h2{
   background: var(--chip);
   border-color: var(--accent2);
 }
-  font-size:13px;
-}
-
+/* Delete anything below this line */
