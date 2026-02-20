@@ -47,8 +47,8 @@ function setupTimelineToggles() {
 }
 
 // Amazon RME Mechatronics keyword library
-const KEYWORDS = [ /* your full list */ ];
- // Org and environment
+const KEYWORDS = [
+  // Org and environment
   "Amazon",
   "Operations",
   "Reliability Maintenance & Engineering",
@@ -248,7 +248,6 @@ const KEYWORDS = [ /* your full list */ ];
   "relocate",
   "flexible to relocate"
 ];
-
 const ALIASES = [
   ["preventative maintenance", "preventive maintenance"],
   ["photo eyes", "photo-eyes"],
@@ -309,7 +308,8 @@ function scoreFit(jdText) {
   const uniqueHits = uniq(hits);
   const uniqueMisses = uniq(misses);
 
-  const rawScore = uniqueHits.length / KEYWORDS.length;
+  const denom = KEYWORDS.length || 1;
+  const rawScore = uniqueHits.length / denom;
   const percent = Math.round(rawScore * 100);
 
   return {
