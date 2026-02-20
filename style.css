@@ -35,12 +35,25 @@ a:hover{text-decoration:underline}
   padding:22px;
 }
 
-.top{
-  position:relative; z-index:1; 
-  top:0;
-  z-index:9999;
-  background:rgba(11,15,22,0.98);
-  border-bottom:1px solid var(--line);
+.top {
+  position: sticky; /* Keep it at the top while scrolling */
+  top: 0;
+  z-index: 9999;
+  /* The Magic: Animated Gradient Border & Glass Effect */
+  background: rgba(11, 15, 22, 0.8);
+  backdrop-filter: blur(12px); 
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid transparent;
+  border-image: linear-gradient(0.25turn, #6aa7ff, #9b7bff, #39d98a);
+  border-image-slice: 1;
+  overflow: hidden;
+}
+
+/* Subtle pulse effect for the brand name */
+.brand:hover .avatar {
+  transform: scale(1.1) rotate(5deg);
+  transition: 0.3s ease;
+  box-shadow: 0 0 15px var(--accent);
 }
 
 .top-inner{
@@ -438,6 +451,23 @@ h2{
 .foot{
   margin-top:12px;
   color:var(--muted);
+
+  /* Pro-level Interaction */
+.card, .panel, .stat, .tl-content {
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.card:hover, .panel:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent);
+  background: rgba(20, 30, 48, 0.8);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+.stat:hover {
+  background: var(--chip);
+  border-color: var(--accent2);
+}
   font-size:13px;
 }
 
