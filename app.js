@@ -285,37 +285,48 @@ function uniq(arr) {
   return Array.from(new Set(arr));
 }
 
-function scoreFit(jdText) {
+function scoreFit(resumeText, jdText) {
+  let resume = normalize(resumeText);
   let jd = normalize(jdText);
+
+  resume = expandAliases(resume);
   jd = expandAliases(jd);
 
-  const hits = [];
-  const misses = [];
+  const jdKeywords = [];
+  const matched = [];
+  const gaps = [];
 
   KEYWORDS.forEach((k) => {
     const nk = normalize(k);
     if (!nk) return;
 
     const isPhrase = nk.includes(" ");
-    const found = isPhrase
+    const inJD = isPhrase
       ? jd.includes(nk)
       : new RegExp(`\\b${nk.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\b`).test(jd);
 
-    if (found) hits.push(k);
-    else misses.push(k);
+    if (!inJD) return;
+
+    jdKeywords.push(k);
+
+    const inResume = isPhrase
+      ? resume.includes(nk)
+      : new RegExp(`\\b${nk.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\b`).test(resume);
+
+    if (inResume) matched.push(k);
+    else gaps.push(k);
   });
 
-  const uniqueHits = uniq(hits);
-  const uniqueMisses = uniq(misses);
+  const uniqueMatched = uniq(matched);
+  const uniqueGaps = uniq(gaps);
+  const denom = jdKeywords.length;
 
-  const denom = KEYWORDS.length || 1;
-  const rawScore = uniqueHits.length / denom;
-  const percent = Math.round(rawScore * 100);
+  const percent = denom ? Math.round((uniqueMatched.length / denom) * 100) : 0;
 
   return {
     percent,
-    matches: uniqueHits.slice(0, 14),
-    gaps: uniqueMisses.slice(0, 10)
+    matches: uniqueMatched.slice(0, 14),
+    gaps: uniqueGaps.slice(0, 12)
   };
 }
 
@@ -330,28 +341,34 @@ function setupFitCheck() {
 
   if (!jd || !run || !clear || !results || !score || !matches || !gaps) return;
 
-  run.addEventListener("click", () => {
-    const text = jd.value || "";
-    const res = scoreFit(text);
+ run.addEventListener("click", () => {
+  const text = jd.value || "";
 
-    score.textContent = `Fit score: ${res.percent}%`;
-    matches.innerHTML = "";
-    gaps.innerHTML = "";
+  const resumeSections = Array.from(document.querySelectorAll("main section"))
+    .filter((s) => s.id !== "fit");
 
-    res.matches.forEach((m) => {
-      const li = document.createElement("li");
-      li.textContent = m;
-      matches.appendChild(li);
-    });
+  const resumeText = resumeSections.map((s) => s.innerText).join(" ");
 
-    res.gaps.forEach((g) => {
-      const li = document.createElement("li");
-      li.textContent = g;
-      gaps.appendChild(li);
-    });
+  const res = scoreFit(resumeText, text);
 
-    results.hidden = false;
+  score.textContent = `Fit score: ${res.percent}%`;
+  matches.innerHTML = "";
+  gaps.innerHTML = "";
+
+  res.matches.forEach((m) => {
+    const li = document.createElement("li");
+    li.textContent = m;
+    matches.appendChild(li);
   });
+
+  res.gaps.forEach((g) => {
+    const li = document.createElement("li");
+    li.textContent = g;
+    gaps.appendChild(li);
+  });
+
+  results.hidden = false;
+});
 
   clear.addEventListener("click", () => {
     jd.value = "";
