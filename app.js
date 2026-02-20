@@ -19,6 +19,191 @@ function setupTimelineToggles() {
       btn.setAttribute("aria-expanded", String(!isOpen));
       btn.textContent = isOpen ? "Details" : "Hide";
       body.hidden = isOpen;
+
+      // ---------- Fit Check v2: Extract keywords from JD, then compare to resume ----------
+
+// Stopwords to remove (common filler words)
+const STOPWORDS = new Set([
+  "a","an","and","are","as","at","be","but","by","for","from","has","have","in","into",
+  "is","it","its","of","on","or","our","out","such","that","the","their","them","then",
+  "there","these","they","this","to","we","will","with","you","your",
+  "ability","able","including","required","preferred","responsibilities","requirements",
+  "experience","knowledge","skills","work","working","role","job","position","team",
+  "must","may","can","ensure","support","maintain","perform","provide"
+]);
+
+// Phrases we want to preserve as single concepts
+// You can expand this list over time
+const PHRASE_WHITELIST = [
+  "preventive maintenance",
+  "preventative maintenance",
+  "predictive maintenance",
+  "electrical schematics",
+  "wiring diagrams",
+  "motor control",
+  "material handling equipment",
+  "conveyor systems",
+  "automated conveyor systems",
+  "robotic work cells",
+  "pneumatic systems",
+  "computerized maintenance management system",
+  "lockout tagout",
+  "fire life safety",
+  "root cause analysis",
+  "power distribution",
+  "variable frequency drive"
+];
+
+// Aliases for common acronyms and variants
+const ALIASES = [
+  ["preventative maintenance", "preventive maintenance"],
+  ["photo eyes", "photo-eyes"],
+  ["photo eye", "photo-eye"],
+  ["programmable logic controller", "plc"],
+  ["computerized maintenance management system", "cmms"],
+  ["material handling equipment", "mhe"],
+  ["variable frequency drive", "vfd"],
+  ["lockout tagout", "loto"],
+  ["fire life safety", "fls"]
+];
+
+function normalize(text) {
+  return (text || "")
+    .toLowerCase()
+    .replace(/\u2011|\u2012|\u2013|\u2014/g, "-")
+    .replace(/&/g, " and ")
+    .replace(/[^a-z0-9\-\s]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function expandAliases(text) {
+  let t = text;
+  for (const [a, b] of ALIASES) {
+    const na = normalize(a);
+    const nb = normalize(b);
+    const hasA = t.includes(na);
+    const hasB = t.includes(nb);
+    if (hasA && !hasB) t += " " + nb;
+    if (hasB && !hasA) t += " " + na;
+  }
+  return t;
+}
+
+function uniq(arr) {
+  return Array.from(new Set(arr));
+}
+
+function tokenFilter(token) {
+  if (!token) return false;
+  if (token.length < 3) return false;
+  if (STOPWORDS.has(token)) return false;
+  if (/^\d+$/.test(token)) return false;
+  return true;
+}
+
+// Extract 1 to 4-gram phrases from JD and rank by frequency
+function extractKeywordsFromJD(jdText) {
+  let jd = expandAliases(normalize(jdText));
+
+  // Lock in whitelist phrases so they do not get split
+  for (const phrase of PHRASE_WHITELIST) {
+    const p = normalize(phrase);
+    if (jd.includes(p)) {
+      jd = jd.replaceAll(p, p.replace(/\s+/g, "_"));
+    }
+  }
+
+  const words = jd.split(" ").map(w => w.replace(/_/g, "_")).filter(Boolean);
+
+  // Build n-grams
+  const counts = new Map();
+
+  function addGram(g) {
+    const cleaned = g.trim();
+    if (!cleaned) return;
+
+    // restore spaces for whitelisted phrases
+    const restored = cleaned.replace(/_/g, " ");
+
+    // filter grams where most tokens are stopwords
+    const tokens = restored.split(" ").filter(Boolean);
+    const goodTokens = tokens.filter(t => tokenFilter(t));
+    if (goodTokens.length === 0) return;
+
+    // reject grams that are mostly stopwords
+    if (goodTokens.length / tokens.length < 0.6) return;
+
+    counts.set(restored, (counts.get(restored) || 0) + 1);
+  }
+
+  for (let i = 0; i < words.length; i++) {
+    const w1 = words[i].replace(/_/g, " ");
+    if (tokenFilter(w1)) addGram(w1);
+
+    const g2 = words.slice(i, i + 2).join(" ");
+    const g3 = words.slice(i, i + 3).join(" ");
+    const g4 = words.slice(i, i + 4).join(" ");
+
+    addGram(g2);
+    addGram(g3);
+    addGram(g4);
+  }
+
+  // Rank: prefer longer phrases, then frequency
+  const ranked = Array.from(counts.entries())
+    .map(([term, freq]) => ({ term, freq, len: term.split(" ").length }))
+    .filter(x => x.term.length >= 3)
+    .sort((a, b) => (b.len - a.len) || (b.freq - a.freq) || (a.term > b.term ? 1 : -1));
+
+  // De-duplicate nested phrases:
+  // if "electrical schematics" exists, drop "schematics" if it is fully covered
+  const selected = [];
+  for (const item of ranked) {
+    const t = item.term;
+    const covered = selected.some(s => s.includes(t) || t.includes(s));
+    if (!covered) selected.push(t);
+    if (selected.length >= 40) break;
+  }
+
+  return selected;
+}
+
+function termInText(term, text) {
+  const nt = normalize(term);
+  if (!nt) return false;
+
+  // phrases: substring match
+  if (nt.includes(" ")) return text.includes(nt);
+
+  // single tokens: word boundary match
+  return new RegExp(`\\b${nt.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\b`).test(text);
+}
+
+function scoreFitV2(resumeText, jdText) {
+  let resume = expandAliases(normalize(resumeText));
+  let jd = expandAliases(normalize(jdText));
+
+  const jdTerms = extractKeywordsFromJD(jdText);
+
+  const matches = [];
+  const gaps = [];
+
+  jdTerms.forEach(term => {
+    if (termInText(term, resume)) matches.push(term);
+    else gaps.push(term);
+  });
+
+  const denom = jdTerms.length || 1;
+  const percent = Math.round((matches.length / denom) * 100);
+
+  return {
+    percent,
+    matches: uniq(matches).slice(0, 14),
+    gaps: uniq(gaps).slice(0, 14),
+    extractedCount: jdTerms.length
+  };
+}
     });
   });
 
@@ -341,17 +526,17 @@ function setupFitCheck() {
 
   if (!jd || !run || !clear || !results || !score || !matches || !gaps) return;
 
- run.addEventListener("click", () => {
-  const text = jd.value || "";
+run.addEventListener("click", () => {
+  const jdText = jd.value || "";
 
   const resumeSections = Array.from(document.querySelectorAll("main section"))
     .filter((s) => s.id !== "fit");
 
   const resumeText = resumeSections.map((s) => s.innerText).join(" ");
 
-  const res = scoreFit(resumeText, text);
+  const res = scoreFitV2(resumeText, jdText);
 
-  score.textContent = `Fit score: ${res.percent}%`;
+  score.textContent = `Fit score: ${res.percent}% (from ${res.extractedCount} JD terms)`;
   matches.innerHTML = "";
   gaps.innerHTML = "";
 
