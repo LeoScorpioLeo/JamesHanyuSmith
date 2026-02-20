@@ -355,13 +355,24 @@
         </div>
 
        <div class="fit-results" id="fitResults" hidden>
-  <div class="fit-header" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
-    <div class="fit-score" id="fitScore" style="font-size: 24px; font-weight: 900;"></div>
-    <div class="progress-container" style="width: 200px; height: 10px; background: var(--line); border-radius: 5px; overflow: hidden;">
-      <div id="fitBar" style="height: 100%; width: 0%; background: var(--good); transition: width 1s ease-in-out;"></div>
-    </div>
-  </div>
-    <section id="contact" class="card">
+        <div class="fit-header" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
+          <div class="fit-score" id="fitScore" style="font-size: 24px; font-weight: 900;"></div>
+          <div class="progress-container" style="width: 200px; height: 10px; background: var(--line); border-radius: 5px; overflow: hidden;">
+            <div id="fitBar" style="height: 100%; width: 0%; background: var(--good); transition: width 1s ease-in-out;"></div>
+          </div>
+        </div>
+        <div class="fit-cols">
+          <div>
+            <div class="fit-h">Matches</div>
+            <ul id="fitMatches" class="bullets"></ul>
+          </div>
+          <div>
+            <div class="fit-h">Gaps to Address</div>
+            <ul id="fitGaps" class="bullets"></ul>
+          </div>
+        </div>
+      </div>
+    </section> <section id="contact" class="card">
       <h2>Contact</h2>
       <div class="contact">
         <div>
@@ -375,10 +386,10 @@
         <div>
           <div class="contact-k">Location</div>
           <div class="contact-v">Colorado Springs, CO</div>
-          <div class="contact-relocation">
-    Open to relocation for high-opportunity apprenticeship and critical infrastructure roles.
-  </div>
-</div>
+        </div>
+      </div>
+      <div class="contact-relocation" style="margin-top:15px;">
+        Open to relocation for high-opportunity apprenticeship and critical infrastructure roles.
       </div>
       <div class="foot">
         <span>© <span id="year"></span> James Hanyu Smith</span>
