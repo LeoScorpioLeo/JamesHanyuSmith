@@ -133,7 +133,7 @@ function extractKeywordsFromJD(jdText) {
   PHRASE_WHITELIST.forEach(phrase => {
     const p = normalize(phrase);
     if (jd.includes(p)) {
-      // Whitelist phrases get a "Weight Bonus" of 5
+      // Whitelist phrases get a "Weight Bonus"
       counts.set(phrase, (counts.get(phrase) || 0) + 5);
     }
   });
@@ -144,7 +144,6 @@ function extractKeywordsFromJD(jdText) {
       const gram = words.slice(i, i + n).join(" ");
       if (gram && gram.length > 3) {
         const tokens = gram.split(" ");
-        // Filter out grams that are mostly stopwords
         if (tokens.every(tokenFilter)) {
           counts.set(gram, (counts.get(gram) || 0) + 1);
         }
@@ -152,10 +151,10 @@ function extractKeywordsFromJD(jdText) {
     });
   }
 
-  // 3. Rank by Weight (Frequency + Whitelist Bonus)
+  // 3. Rank by Weight
   return Array.from(counts.entries())
     .sort((a, b) => b[1] - a[1]) 
-    .slice(0, 30) // Take the top 30 most relevant
+    .slice(0, 30)
     .map(entry => ({ term: entry[0], weight: entry[1] }));
 }
 
@@ -167,6 +166,27 @@ function scoreFitV2(resumeText, jdText) {
   let totalPossiblePoints = 0;
   const matches = [];
   const gaps = [];
+
+  jdKeywords.forEach(({ term, weight }) => {
+    totalPossiblePoints += weight;
+    if (termInText(term, resume)) {
+      earnedPoints += weight;
+      matches.push(term);
+    } else {
+      gaps.push(term);
+    }
+  });
+
+  const percent = totalPossiblePoints > 0 ? Math.round((earnedPoints / totalPossiblePoints) * 100) : 0;
+
+  return {
+    percent,
+    matches: matches.slice(0, 15),
+    gaps: gaps.slice(0, 15),
+    weightedScore: earnedPoints,
+    extractedCount: jdKeywords.length
+  };
+}
 
   jdKeywords.forEach(({ term, weight }) => {
     totalPossiblePoints += weight;
