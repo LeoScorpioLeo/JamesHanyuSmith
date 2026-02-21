@@ -310,14 +310,14 @@ h2{
 
 .timeline {
   display: flex;
-  flex-direction: column; /* Forces vertical stacking */
+  flex-direction: column;
   gap: 24px;
   width: 100%;
 }
 
 .tl-item {
   display: flex;
-  flex-direction: row; /* Keeps the dot to the left of the content */
+  flex-direction: row; 
   gap: 15px;
   width: 100%;
 }
@@ -513,27 +513,23 @@ h2{
 
 .tooltip-content {
   visibility: hidden;
-  /* FORCES the box to be exactly as wide as the longest line */
-  width: max-content;
-  min-width: max-content;
-  white-space: nowrap; 
-  display: inline-block;
-
-  background-color: var(--panel);
+  width: max-content; /* Box expands to fit text */
+  white-space: nowrap; /* Prevents text from jumping to new lines */
+  background-color: #0b0f16; /* Matches your deep background */
   color: var(--text);
   text-align: left;
   border: 1px solid var(--accent);
   border-radius: 8px;
   padding: 12px;
   position: absolute;
-  z-index: 100;
+  z-index: 1000; /* Stays on top of the fixed header */
   bottom: 130%; 
   left: 0;
   opacity: 0;
   transition: opacity 0.3s;
   font-size: 13px;
   font-weight: 400;
-  line-height: 1.5; /* Better spacing between lines */
-  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+  line-height: 1.5;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.8);
   pointer-events: none;
 }
