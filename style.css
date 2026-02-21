@@ -310,17 +310,16 @@ h2{
 
 .timeline {
   display: flex;
-  flex-direction: column;
-  gap: 24px; /* Space between each job box */
+  flex-direction: column; /* Forces vertical stacking */
+  gap: 24px;
   width: 100%;
 }
 
 .tl-item {
   display: flex;
-  flex-direction: row; /* Dot on the left, Content on the right */
+  flex-direction: row; /* Keeps the dot to the left of the content */
   gap: 15px;
   width: 100%;
-  position: relative;
 }
 
 .tl-dot{
@@ -334,13 +333,12 @@ h2{
 
 .tl-content {
   flex: 1;
+  display: flex;
+  flex-direction: column; /* Ensures text inside stays stacked */
   background: rgba(16, 24, 38, 0.55);
   border: 1px solid var(--line);
   border-radius: 16px;
   padding: 16px;
-  display: flex;
-  flex-direction: column;
-  min-width: 0; /* Important fix for text wrapping */
 }
 
 .tl-role{
