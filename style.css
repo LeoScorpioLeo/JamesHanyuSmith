@@ -40,17 +40,19 @@ a:hover{text-decoration:underline}
 }
 
 .top {
-  position: sticky; /* Keep it at the top while scrolling */
+  /* CHANGE: This keeps the header at the top of the screen */
+  position: fixed;
   top: 0;
-  z-index: 9999;
-  /* The Magic: Animated Gradient Border & Glass Effect */
-  background: rgba(11, 15, 22, 0.8);
-  backdrop-filter: blur(12px); 
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid transparent;
-  border-image: linear-gradient(0.25turn, #6aa7ff, #9b7bff, #39d98a);
-  border-image-slice: 1;
-  overflow: hidden;
+  left: 0;
+  width: 100%;
+  
+  /* ENSURES: The header stays on top of all other elements */
+  z-index: 1000;
+  
+  /* STYLING: Match your existing background and add a subtle shadow */
+  background-color: var(--bg); /* or use your specific hex color */
+  border-bottom: 1px solid var(--line);
+  padding: 10px 0;
 }
 
 /* Subtle pulse effect for the brand name */
