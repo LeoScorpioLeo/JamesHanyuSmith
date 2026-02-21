@@ -318,7 +318,7 @@ h2{
 
 .tl-item {
   display: flex !important;
-  flex-direction: row !important;
+  flex-direction: row !important; /* Dot stays to the left of the box */
   align-items: flex-start !important;
   gap: 15px !important;
   width: 100% !important;
@@ -332,7 +332,7 @@ h2{
   border: 1px solid var(--line) !important;
   border-radius: 16px !important;
   padding: 20px !important;
-  min-width: 0 !important; /* Prevents text from pushing the box out */
+  min-width: 0 !important; 
 }
 
 .tl-dot{
@@ -344,17 +344,6 @@ h2{
   box-shadow:0 0 0 4px rgba(106,167,255,.08);
 }
 
-.tl-content {
-  flex: 1;
-  display: flex;
-  flex-direction: column; /* Ensures text inside stays stacked */
-  background: rgba(16, 24, 38, 0.55);
-  border: 1px solid var(--line);
-  border-radius: 16px;
-  padding: 16px;
-}
-
-.tl-role{
   font-weight:800;
   margin-bottom:2px;
 }
@@ -525,23 +514,20 @@ h2{
 
 .tooltip-content {
   visibility: hidden;
-  width: max-content; /* Box expands to fit text */
-  white-space: nowrap; /* Prevents text from jumping to new lines */
-  background-color: #0b0f16; /* Matches your deep background */
+  width: max-content !important;
+  white-space: nowrap !important;
+  background-color: #0b0f16 !important;
   color: var(--text);
-  text-align: left;
   border: 1px solid var(--accent);
   border-radius: 8px;
   padding: 12px;
   position: absolute;
-  z-index: 1000; /* Stays on top of the fixed header */
+  z-index: 1000;
   bottom: 130%; 
   left: 0;
   opacity: 0;
   transition: opacity 0.3s;
   font-size: 13px;
-  font-weight: 400;
   line-height: 1.5;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.8);
   pointer-events: none;
 }
