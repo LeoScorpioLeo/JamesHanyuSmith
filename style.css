@@ -309,35 +309,30 @@ h2{
 }
 
 .timeline {
-  display: flex;
-  flex-direction: column; /* FORCES vertical stacking */
-  gap: 32px; /* Adds space between the job boxes */
-  width: 100%;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 30px !important;
+  width: 100% !important;
+  margin: 0 auto !important;
 }
 
 .tl-item {
-  display: flex;
-  flex-direction: row; /* Keeps the dot to the left of the content */
-  gap: 15px;
-  width: 100%;
-  align-items: flex-start;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: flex-start !important;
+  gap: 15px !important;
+  width: 100% !important;
 }
 
 .tl-content {
-  flex: 1;
-  display: flex;
-  flex-direction: column; /* Ensures text inside the box stacks vertically */
-  background: rgba(16, 24, 38, 0.55);
-  border: 1px solid var(--line);
-  border-radius: 16px;
-  padding: 16px;
-}
-
-.tl-item {
-  display: flex;
-  flex-direction: row; 
-  gap: 15px;
-  width: 100%;
+  flex: 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  background: rgba(16, 24, 38, 0.65) !important;
+  border: 1px solid var(--line) !important;
+  border-radius: 16px !important;
+  padding: 20px !important;
+  min-width: 0 !important; /* Prevents text from pushing the box out */
 }
 
 .tl-dot{
@@ -370,10 +365,9 @@ h2{
 }
 
 .tl-top {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-bottom: 10px;
+  display: flex !important;
+  flex-direction: column !important;
+  width: 100% !important;
 }
 
 .tl-body{
