@@ -35,7 +35,9 @@ a:hover{text-decoration:underline}
   padding: 22px;
 }
 
-.card, .panel, .fit-results {
+main.container {
+  padding-top: 140px; /* Adjust this if the gap is too big or small */
+}.card, .panel, .fit-results {
   width: 100%;
 }
 
