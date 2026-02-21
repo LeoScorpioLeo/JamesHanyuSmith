@@ -469,4 +469,52 @@ h2{
   background: var(--chip);
   border-color: var(--accent2);
 }
+
+/* Tooltip Container */
+.tooltip-trigger {
+  position: relative;
+  cursor: help; /* Changes mouse to a question mark */
+  border-bottom: 1px dotted var(--accent);
+  display: inline-block;
+}
+
+/* Tooltip Text (The Pop-up Box) */
+.tooltip-content {
+  visibility: hidden;
+  width: 260px;
+  background-color: var(--panel);
+  color: var(--text);
+  text-align: left;
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  padding: 12px;
+  position: absolute;
+  z-index: 100;
+  bottom: 125%; /* Places it above the title */
+  left: 0;
+  opacity: 0;
+  transition: opacity 0.3s;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.4;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+  pointer-events: none; /* Prevents the box from flickering */
+}
+
+/* Show the tooltip on hover */
+.tooltip-trigger:hover .tooltip-content {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* The little arrow at the bottom of the box */
+.tooltip-content::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 20px;
+  border-width: 8px;
+  border-style: solid;
+  border-color: var(--accent) transparent transparent transparent;
+}
 /* Delete anything below this line */
