@@ -507,15 +507,6 @@ h2{
   opacity: 1;
 }
 
-/* The little arrow at the bottom of the box */
-To make the popup box fit the width of its content perfectly (so it's only as wide as your longest line, like the Employer Code or HQ Address), we just need to change two lines in your CSS.
-
-1. Update the CSS (style.css)
-Find the .tooltip-content block we just added to the bottom of your file. Change width: 260px; to width: max-content; and add a white-space rule.
-
-Your updated CSS should look like this:
-
-CSS
 .tooltip-content {
   visibility: hidden;
   /* CHANGE: This forces the box to fit the longest line of text */
@@ -531,7 +522,7 @@ CSS
   padding: 12px;
   position: absolute;
   z-index: 100;
-  bottom: 125%;
+  bottom: 130%; /* Slightly more clearance above the title */
   left: 0;
   opacity: 0;
   transition: opacity 0.3s;
@@ -541,4 +532,5 @@ CSS
   box-shadow: 0 10px 30px rgba(0,0,0,0.6);
   pointer-events: none;
 }
+
 /* Delete anything below this line */
