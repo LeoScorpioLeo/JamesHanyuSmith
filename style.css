@@ -305,15 +305,16 @@ h2{
 .timeline {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 24px; /* Space between each job box */
+  width: 100%;
 }
 
 .tl-item {
   display: flex;
-  flex-direction: row;
+  flex-direction: row; /* Dot on the left, Content on the right */
   gap: 15px;
-  position: relative;
   width: 100%;
+  position: relative;
 }
 
 .tl-dot{
@@ -327,13 +328,13 @@ h2{
 
 .tl-content {
   flex: 1;
-  background: rgba(16, 24, 38, 0.5);
+  background: rgba(16, 24, 38, 0.55);
   border: 1px solid var(--line);
-  border-radius: 12px;
-  padding: 15px;
-  /* This prevents the horizontal overlap */
+  border-radius: 16px;
+  padding: 16px;
   display: flex;
   flex-direction: column;
+  min-width: 0; /* Important fix for text wrapping */
 }
 
 .tl-role{
@@ -349,7 +350,8 @@ h2{
 .tl-top {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 8px;
+  margin-bottom: 10px;
 }
 
 .tl-body{
@@ -357,10 +359,8 @@ h2{
 }
 
 .toggle {
-  align-self: flex-start; /* Keeps the button from stretching too wide */
-  width: auto;
-  min-width: 100px;
-  margin-top: 10px;
+  width: fit-content;
+  padding: 8px 16px;
 }
 
 .toggle:hover{
