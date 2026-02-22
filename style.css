@@ -159,24 +159,25 @@ main.container { padding-top: 130px; }
    "opacity: 0" and "visibility: hidden" makes it invisible by default.
    "pointer-events: none" means it won't accidentally block mouse clicks
    when it's hidden. */
+
 .tooltip-content {
-  position: absolute;
-  bottom: calc(100% + 6px); /* places the box ABOVE the job title */
-  left: 0;
-  background: #1e293b;      /* dark navy background */
-  color: #f1f5f9;           /* light text */
+  position: fixed;          /* changed from absolute — this breaks free of any
+                               parent containers that might be clipping it */
+  background: #f8f6f1;      /* solid off-white — no transparency */
+  color: #1a1a1a;           /* dark text so it's readable on the light background */
   padding: 10px 14px;
   border-radius: 6px;
   font-size: 0.8rem;
   line-height: 1.6;
-  white-space: nowrap;      /* keeps text on one line unless you use <br> */
+  white-space: nowrap;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.2s ease, visibility 0.2s ease; /* smooth fade in */
+  transition: opacity 0.2s ease, visibility 0.2s ease;
   pointer-events: none;
-  z-index: 100;             /* makes sure it appears on top of other content */
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-  border: 1px solid #334155;
+  z-index: 9999;            /* bumped way up to ensure it floats above everything */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  border: 1px solid #c9c3b8;  /* subtle warm border to match the off-white */
+  transform: translateY(-8px); /* nudges it upward visually */
 }
 
 /* A small triangle "pointer" that appears at the bottom of the tooltip box,
