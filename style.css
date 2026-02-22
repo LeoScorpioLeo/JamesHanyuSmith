@@ -186,10 +186,10 @@ main.container { padding-top: 130px; }
 .tooltip-content::after {
   content: '';
   position: absolute;
-  top: 100%;                /* sits right below the tooltip box */
+  top: 100%;
   left: 16px;
   border: 6px solid transparent;
-  border-top-color: #1e293b; /* matches the tooltip background */
+  border-top-color: #f8f6f1;  /* matches the new off-white background */
 }
 
 /* THIS is the magic line. When a visitor hovers over the .tooltip-trigger
