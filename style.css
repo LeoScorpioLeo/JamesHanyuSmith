@@ -55,146 +55,39 @@ main.container { padding-top: 130px; }
 .tl-meta { color: var(--muted); font-size: 13px; margin-bottom: 10px; }
 
 /* Tooltips */
-/* Tooltip on job title hover and focus */
-.tooltip-trigger{
+.tooltip-trigger {
   position: relative;
   display: inline-block;
   cursor: help;
+  outline: none;
 }
 
-.tooltip-content{
+.tooltip-content {
   position: absolute;
   left: 0;
-  top: 100%;
-  margin-top: 10px;
-
+  bottom: calc(100% + 10px); /* positions ABOVE the job title */
+  
   min-width: 260px;
   max-width: 360px;
 
   padding: 12px 14px;
-  border-radius: 12px;
+  border-radius: 10px;
 
-  background: #11151b;
-  border: 1px solid rgba(255,255,255,0.12);
-  box-shadow: 0 12px 30px rgba(0,0,0,0.45);
+  background: #f8f6f1;             /* solid off-white */
+  border: 1px solid #c9c3b8;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.35);
 
-  color: #e8edf5;
+  color: #1a1a1a;                  /* dark readable text */
   font-size: 14px;
-  line-height: 1.35;
+  line-height: 1.5;
 
   opacity: 0;
   visibility: hidden;
-  transform: translateY(6px);
+  transform: translateY(4px);
   transition: opacity 160ms ease, transform 160ms ease, visibility 160ms ease;
 
-  z-index: 50;
+  z-index: 9999;
   pointer-events: none;
 }
 
-.tooltip-trigger:hover .tooltip-content,
-.tooltip-trigger:focus-within .tooltip-content{
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
-}
-
-/* Optional: little arrow */
-.tooltip-content::before{
-  content: "";
-  position: absolute;
-  left: 16px;
-  top: -8px;
-  width: 14px;
-  height: 14px;
-  background: #11151b;
-  border-left: 1px solid rgba(255,255,255,0.12);
-  border-top: 1px solid rgba(255,255,255,0.12);
-  transform: rotate(45deg);
-}
-
-/* Prevent parents from clipping the tooltip */
-.tl-content,
-.tl-top,
-.tl-role,
-.timeline,
-.card{
-  overflow: visible;
-}
-
-/* Keyboard accessibility */
-.tooltip-trigger{
-  outline: none;
-}
-.tooltip-trigger:focus-within{
-  text-decoration: underline;
-}
-
-/* Generic Styles */
-.card { border: 1px solid var(--line); border-radius: 18px; background: rgba(15, 23, 36, 0.62); padding: 20px; margin-top: 16px; }
-.chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
-.chip { border: 1px solid var(--chipLine); background: var(--chip); padding: 6px 12px; border-radius: 999px; font-size: 13px; }
-.bullets { margin: 10px 0 0 18px; padding: 0; }
-.bullets li { margin: 6px 0; }
-.muted { color: var(--muted); }
-.btn { padding: 10px 16px; border-radius: 12px; border: 1px solid var(--line); background: var(--panel); color: var(--text); font-weight: 600; cursor: pointer; }
-.btn.primary { background: var(--accent); color: #000; border-color: var(--accent); }
-
-/* ============================================================
-   TOOLTIP STYLES
-   These control the popup boxes that appear when hovering
-   over a job title in the Work History section.
-   ============================================================ */
-
-/* The outer wrapper for a job title that has a tooltip.
-   "position: relative" means the popup box will be positioned
-   relative to this element — it anchors the popup to the title. */
-.tooltip-trigger {
-  position: relative;
-  cursor: default;          /* shows a normal arrow cursor, not a text cursor */
-  display: inline-block;
-}
-
-/* The popup box itself.
-   "position: absolute" means it floats above the page layout.
-   "opacity: 0" and "visibility: hidden" makes it invisible by default.
-   "pointer-events: none" means it won't accidentally block mouse clicks
-   when it's hidden. */
-
-.tooltip-content {
-  position: fixed;          /* changed from absolute — this breaks free of any
-                               parent containers that might be clipping it */
-  background: #f8f6f1;      /* solid off-white — no transparency */
-  color: #1a1a1a;           /* dark text so it's readable on the light background */
-  padding: 10px 14px;
-  border-radius: 6px;
-  font-size: 0.8rem;
-  line-height: 1.6;
-  white-space: nowrap;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.2s ease, visibility 0.2s ease;
-  pointer-events: none;
-  z-index: 9999;            /* bumped way up to ensure it floats above everything */
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-  border: 1px solid #c9c3b8;  /* subtle warm border to match the off-white */
-  transform: translateY(-8px); /* nudges it upward visually */
-}
-
-/* A small triangle "pointer" that appears at the bottom of the tooltip box,
-   making it look like a speech bubble pointing down at the job title.
-   This uses a CSS trick with a zero-size element and borders. */
-.tooltip-content::after {
-  content: '';
-  position: absolute;
-  top: 100%;
-  left: 16px;
-  border: 6px solid transparent;
-  border-top-color: #f8f6f1;  /* matches the new off-white background */
-}
-
-/* THIS is the magic line. When a visitor hovers over the .tooltip-trigger
-   element, make the .tooltip-content inside it visible. */
-.tooltip-trigger:hover .tooltip-content {
-  opacity: 1;
-  visibility: visible;
-}
+/* Arrow pointing DOWN toward the job ti
