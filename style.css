@@ -138,3 +138,62 @@ main.container { padding-top: 130px; }
 .muted { color: var(--muted); }
 .btn { padding: 10px 16px; border-radius: 12px; border: 1px solid var(--line); background: var(--panel); color: var(--text); font-weight: 600; cursor: pointer; }
 .btn.primary { background: var(--accent); color: #000; border-color: var(--accent); }
+
+/* ============================================================
+   TOOLTIP STYLES
+   These control the popup boxes that appear when hovering
+   over a job title in the Work History section.
+   ============================================================ */
+
+/* The outer wrapper for a job title that has a tooltip.
+   "position: relative" means the popup box will be positioned
+   relative to this element — it anchors the popup to the title. */
+.tooltip-trigger {
+  position: relative;
+  cursor: default;          /* shows a normal arrow cursor, not a text cursor */
+  display: inline-block;
+}
+
+/* The popup box itself.
+   "position: absolute" means it floats above the page layout.
+   "opacity: 0" and "visibility: hidden" makes it invisible by default.
+   "pointer-events: none" means it won't accidentally block mouse clicks
+   when it's hidden. */
+.tooltip-content {
+  position: absolute;
+  bottom: calc(100% + 6px); /* places the box ABOVE the job title */
+  left: 0;
+  background: #1e293b;      /* dark navy background */
+  color: #f1f5f9;           /* light text */
+  padding: 10px 14px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  line-height: 1.6;
+  white-space: nowrap;      /* keeps text on one line unless you use <br> */
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0.2s ease; /* smooth fade in */
+  pointer-events: none;
+  z-index: 100;             /* makes sure it appears on top of other content */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  border: 1px solid #334155;
+}
+
+/* A small triangle "pointer" that appears at the bottom of the tooltip box,
+   making it look like a speech bubble pointing down at the job title.
+   This uses a CSS trick with a zero-size element and borders. */
+.tooltip-content::after {
+  content: '';
+  position: absolute;
+  top: 100%;                /* sits right below the tooltip box */
+  left: 16px;
+  border: 6px solid transparent;
+  border-top-color: #1e293b; /* matches the tooltip background */
+}
+
+/* THIS is the magic line. When a visitor hovers over the .tooltip-trigger
+   element, make the .tooltip-content inside it visible. */
+.tooltip-trigger:hover .tooltip-content {
+  opacity: 1;
+  visibility: visible;
+}
