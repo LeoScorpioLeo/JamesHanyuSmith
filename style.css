@@ -55,14 +55,79 @@ main.container { padding-top: 130px; }
 .tl-meta { color: var(--muted); font-size: 13px; margin-bottom: 10px; }
 
 /* Tooltips */
-.tooltip-trigger { position: relative; cursor: help; border-bottom: 1px dotted var(--accent); display: inline-block; }
-.tooltip-content {
-  visibility: hidden; width: max-content; white-space: nowrap; background-color: var(--panel);
-  color: var(--text); border: 1px solid var(--accent); border-radius: 8px; padding: 12px;
-  position: absolute; z-index: 1100; bottom: 130%; left: 0; opacity: 0; transition: opacity 0.3s;
-  font-size: 13px; box-shadow: 0 10px 30px rgba(0,0,0,0.8); pointer-events: none;
+/* Tooltip on job title hover and focus */
+.tooltip-trigger{
+  position: relative;
+  display: inline-block;
+  cursor: help;
 }
-.tooltip-trigger:hover .tooltip-content { visibility: visible; opacity: 1; }
+
+.tooltip-content{
+  position: absolute;
+  left: 0;
+  top: 100%;
+  margin-top: 10px;
+
+  min-width: 260px;
+  max-width: 360px;
+
+  padding: 12px 14px;
+  border-radius: 12px;
+
+  background: #11151b;
+  border: 1px solid rgba(255,255,255,0.12);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.45);
+
+  color: #e8edf5;
+  font-size: 14px;
+  line-height: 1.35;
+
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(6px);
+  transition: opacity 160ms ease, transform 160ms ease, visibility 160ms ease;
+
+  z-index: 50;
+  pointer-events: none;
+}
+
+.tooltip-trigger:hover .tooltip-content,
+.tooltip-trigger:focus-within .tooltip-content{
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* Optional: little arrow */
+.tooltip-content::before{
+  content: "";
+  position: absolute;
+  left: 16px;
+  top: -8px;
+  width: 14px;
+  height: 14px;
+  background: #11151b;
+  border-left: 1px solid rgba(255,255,255,0.12);
+  border-top: 1px solid rgba(255,255,255,0.12);
+  transform: rotate(45deg);
+}
+
+/* Prevent parents from clipping the tooltip */
+.tl-content,
+.tl-top,
+.tl-role,
+.timeline,
+.card{
+  overflow: visible;
+}
+
+/* Keyboard accessibility */
+.tooltip-trigger{
+  outline: none;
+}
+.tooltip-trigger:focus-within{
+  text-decoration: underline;
+}
 
 /* Generic Styles */
 .card { border: 1px solid var(--line); border-radius: 18px; background: rgba(15, 23, 36, 0.62); padding: 20px; margin-top: 16px; }
