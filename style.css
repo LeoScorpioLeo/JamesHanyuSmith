@@ -90,4 +90,29 @@ main.container { padding-top: 130px; }
   pointer-events: none;
 }
 
-/* Arrow pointing DOWN toward the job ti
+/* Arrow pointing DOWN toward the job title */
+.tooltip-content::before {
+  content: "";
+  position: absolute;
+  left: 16px;
+  top: 100%;
+  border: 8px solid transparent;
+  border-top-color: #f8f6f1;
+}
+
+/* THIS is the line that makes the tooltip actually appear on hover */
+.tooltip-trigger:hover .tooltip-content,
+.tooltip-trigger:focus-within .tooltip-content {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* Prevent parent containers from clipping the tooltip */
+.tl-content,
+.tl-top,
+.tl-role,
+.timeline,
+.card {
+  overflow: visible;
+}
